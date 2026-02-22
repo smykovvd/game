@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Bush
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
-  - 
+  - Object
+  - Effect
   - 
   - 
   - 
@@ -41,8 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 2334749681
+  - name: Ground
+    uniqueID: 1552992227
+    locked: 0
+  - name: Background
+    uniqueID: 1108909139
     locked: 0
   - name: Objects
     uniqueID: 3130304395
@@ -50,11 +54,11 @@ TagManager:
   - name: Player
     uniqueID: 1501518903
     locked: 0
-  - name: Ground
-    uniqueID: 1552992227
+  - name: UI
+    uniqueID: 2334749681
     locked: 0
-  - name: Background
-    uniqueID: 1108909139
+  - name: Effects
+    uniqueID: 1600728277
     locked: 0
   m_RenderingLayers:
   - Default
