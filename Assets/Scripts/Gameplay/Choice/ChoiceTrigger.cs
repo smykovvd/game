@@ -6,19 +6,48 @@ using UnityEditor;
 public class ChoiceTrigger : MonoBehaviour
 {
     [Header("Варианты выбора")]
-    [SerializeField] private string[] options = new string[3]; // Тексты вариантов
+    [SerializeField] private string[] options = new string[3];
 
     [Header("Сцены для загрузки")]
-    [SerializeField] private SceneReference[] sceneReferences = new SceneReference[3]; // Ссылки на сцены
+    [SerializeField] private SceneReference[] sceneReferences = new SceneReference[3];
 
     [Header("Настройки")]
     [SerializeField] private ChoiceManager choiceManager;
     [SerializeField] private bool oneTimeUse = true;
+    [SerializeField] private bool startLocked = false; // Заблокирован ли триггер изначально
 
     private bool triggered = false;
+    private bool isUnlocked;
+
+    void Start()
+    {
+        if (startLocked)
+            Lock();
+        else
+            Unlock();
+    }
+
+    // Разблокировать триггер (включить коллайдер и возможность срабатывания)
+    public void Unlock()
+    {
+        isUnlocked = true;
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = true;
+        // Здесь можно добавить визуальный эффект (например, включить частицы)
+    }
+
+    // Заблокировать триггер (отключить коллайдер)
+    public void Lock()
+    {
+        isUnlocked = false;
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+        // Отключить визуальный эффект
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (!isUnlocked) return;
         if (oneTimeUse && triggered) return;
 
         if (other.CompareTag("Player"))
@@ -27,7 +56,6 @@ public class ChoiceTrigger : MonoBehaviour
 
             if (choiceManager != null)
             {
-                // Преобразуем SceneReference в массив имен сцен
                 string[] sceneNames = new string[sceneReferences.Length];
                 for (int i = 0; i < sceneReferences.Length; i++)
                 {

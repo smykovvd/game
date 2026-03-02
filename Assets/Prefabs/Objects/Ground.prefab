@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 93521459275571094}
   - component: {fileID: 6285883364416690285}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: ChoiceTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 4959066784710762411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.004, y: 0.388, z: -0.00000017370547}
-  m_LocalScale: {x: 0.19730532, y: 0.18801269, z: 1}
+  m_LocalPosition: {x: -0.379, y: 0.398, z: -0.00000017370547}
+  m_LocalScale: {x: 0.15192509, y: 0.15417041, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1405312299970056277}
@@ -138,12 +138,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   options:
-  - 
+  - "\u043F\u0443\u0442\u044C"
   sceneReferences:
   - sceneAsset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
     sceneName: 
   choiceManager: {fileID: 0}
   oneTimeUse: 0
+  startLocked: 0
 --- !u!1 &6738915041063545187
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.51, y: 0.85, z: 0.00000017370547}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 10.349999, y: 9.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5267087366784852632}
