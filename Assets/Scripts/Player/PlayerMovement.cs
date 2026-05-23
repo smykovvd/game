@@ -8,68 +8,68 @@ public class PlayerMovement : MonoBehaviour
     public float attackCooldown = 0.5f;
     public float attackDuration = 0.2f;
 
-    private Vector2 movement;
-    private Vector2 lastMoveDirection = Vector2.down;
-    private float lastAttackTime = 0f;
-    private bool isAttacking = false;
+    [SerializeField] CharacterAnimationBridge animationBridge;
+
+    Vector2 movement;
+    Vector2 lastMoveDirection = Vector2.down;
+    float lastAttackTime;
+    bool isAttacking;
+
+    void Awake()
+    {
+        if (animationBridge == null)
+            animationBridge = GetComponent<CharacterAnimationBridge>();
+    }
 
     void Update()
     {
-        // Движение
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
         movement = new Vector2(horizontal, vertical).normalized;
 
-        // Сохраняем последнее направление для атаки
         if (movement != Vector2.zero)
-        {
             lastMoveDirection = movement;
-        }
 
-        // Атака по пробелу (можно изменить)
+        animationBridge?.UpdateLocomotion(movement, isAttacking);
+
         if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
-        {
             Attack();
-        }
     }
 
     void FixedUpdate()
     {
-        if (!isAttacking) // Не двигаемся во время атаки
-        {
+        if (!isAttacking)
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
     }
 
     void Attack()
     {
-        if (Time.time - lastAttackTime < attackCooldown) return;
+        if (Time.time - lastAttackTime < attackCooldown)
+            return;
 
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        // Активируем хитбокс
+        animationBridge?.PlayAttack();
+
         if (attackHitbox != null)
         {
-            // Позиционируем хитбокс
             float attackDistance = 0.8f;
             Vector2 hitboxPosition = (Vector2)transform.position + lastMoveDirection * attackDistance;
             attackHitbox.transform.position = hitboxPosition;
-
             attackHitbox.SetActive(true);
         }
 
-        // Отключаем атаку через время
         Invoke(nameof(EndAttack), attackDuration);
     }
 
     void EndAttack()
     {
         isAttacking = false;
+        animationBridge?.EndAttackAnimation();
+
         if (attackHitbox != null)
-        {
             attackHitbox.SetActive(false);
-        }
     }
 }

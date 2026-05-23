@@ -1,0 +1,1551 @@
+fileFormatVersion: 2
+guid: 3987e6bb380f247dca6df69fd19b291d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1662613486703163539
+    second: rogues_0
+  - first:
+      213: -5918137915363136097
+    second: rogues_1
+  - first:
+      213: 7598845908082315433
+    second: rogues_2
+  - first:
+      213: 6847130768412236191
+    second: rogues_3
+  - first:
+      213: 1024069151341385491
+    second: rogues_4
+  - first:
+      213: 248234936431850608
+    second: rogues_5
+  - first:
+      213: -4187769825804618121
+    second: rogues_6
+  - first:
+      213: -1764452743288652820
+    second: rogues_7
+  - first:
+      213: 3327685065352914550
+    second: rogues_8
+  - first:
+      213: -3935264485411027069
+    second: rogues_9
+  - first:
+      213: -6502872108531726933
+    second: rogues_10
+  - first:
+      213: -6565835137778244483
+    second: rogues_11
+  - first:
+      213: 6296023426331546674
+    second: rogues_12
+  - first:
+      213: -8582895898453060978
+    second: rogues_13
+  - first:
+      213: -5787033745658224487
+    second: rogues_14
+  - first:
+      213: -779178000821955330
+    second: rogues_15
+  - first:
+      213: 6318122654512930386
+    second: rogues_16
+  - first:
+      213: -644773305562672891
+    second: rogues_17
+  - first:
+      213: 3687545213055956518
+    second: rogues_18
+  - first:
+      213: 2783893222895161197
+    second: rogues_19
+  - first:
+      213: -1115302973846929897
+    second: rogues_20
+  - first:
+      213: -2498498304402662931
+    second: rogues_21
+  - first:
+      213: 9040946838189547898
+    second: rogues_22
+  - first:
+      213: 3078493119409997294
+    second: rogues_23
+  - first:
+      213: 8086551292566691165
+    second: rogues_24
+  - first:
+      213: 4025885058500790527
+    second: rogues_25
+  - first:
+      213: 3997349625540299793
+    second: rogues_26
+  - first:
+      213: -5479864878087252051
+    second: rogues_27
+  - first:
+      213: 256837912651675722
+    second: rogues_28
+  - first:
+      213: 5608883997597516285
+    second: rogues_29
+  - first:
+      213: -2094491032432744238
+    second: rogues_30
+  - first:
+      213: -8930648807531028900
+    second: rogues_31
+  - first:
+      213: 8622822618815760748
+    second: rogues_32
+  - first:
+      213: 3860134714905431866
+    second: rogues_33
+  - first:
+      213: -889892870527839143
+    second: rogues_34
+  - first:
+      213: 5509031573903990705
+    second: rogues_35
+  - first:
+      213: 5228109309645807972
+    second: rogues_36
+  - first:
+      213: -994114111691974414
+    second: rogues_37
+  - first:
+      213: -4966345734685538788
+    second: rogues_38
+  - first:
+      213: -2363425250398905029
+    second: rogues_39
+  - first:
+      213: -4905068951815403114
+    second: rogues_0_0
+  - first:
+      213: 6562424126474416398
+    second: rogues_1_0
+  - first:
+      213: 7687050273500946781
+    second: rogues_2_0
+  - first:
+      213: -2234045855734638429
+    second: rogues_3_0
+  - first:
+      213: 8879783099588361070
+    second: rogues_4_0
+  - first:
+      213: 3398057017560617698
+    second: rogues_5_0
+  - first:
+      213: -90465886076501645
+    second: rogues_6_0
+  - first:
+      213: -5202113286314700410
+    second: rogues_0_1
+  - first:
+      213: -9108320460882275497
+    second: rogues_1_1
+  - first:
+      213: -8207155598368595335
+    second: rogues_2_1
+  - first:
+      213: -3577768639856314339
+    second: rogues_3_1
+  - first:
+      213: -3610650374307126512
+    second: rogues_4_1
+  - first:
+      213: 7747277539318172091
+    second: rogues_5_1
+  - first:
+      213: 6273070457295595712
+    second: rogues_6_1
+  - first:
+      213: -5789301926336849613
+    second: rogues_0_2
+  - first:
+      213: 2582750968093348770
+    second: rogues_1_2
+  - first:
+      213: -8014520842144293765
+    second: rogues_2_2
+  - first:
+      213: 1314847025982513820
+    second: rogues_3_2
+  - first:
+      213: 7666762956134964293
+    second: rogues_4_2
+  - first:
+      213: -7296934629620558846
+    second: rogues_5_2
+  - first:
+      213: -4388234524720469310
+    second: rogues_6_2
+  - first:
+      213: 1341417359650084245
+    second: rogues_0_3
+  - first:
+      213: -4422765658118085642
+    second: rogues_1_3
+  - first:
+      213: -1048902402929076434
+    second: rogues_2_3
+  - first:
+      213: 3045169532296739495
+    second: rogues_3_3
+  - first:
+      213: 6795064183544962142
+    second: rogues_4_3
+  - first:
+      213: -3129361233824028908
+    second: rogues_5_3
+  - first:
+      213: -7535559751554277795
+    second: rogues_6_3
+  - first:
+      213: 5637322987160314321
+    second: rogues_0_4
+  - first:
+      213: 6070140770532974737
+    second: rogues_1_4
+  - first:
+      213: -2749266703935749255
+    second: rogues_2_4
+  - first:
+      213: -428070888090218955
+    second: rogues_3_4
+  - first:
+      213: -6315864813587270524
+    second: rogues_4_4
+  - first:
+      213: -9132704449972249226
+    second: rogues_5_4
+  - first:
+      213: -1494275709523776709
+    second: rogues_6_4
+  - first:
+      213: 3726124822966778107
+    second: rogues_0_5
+  - first:
+      213: 5086888238938076188
+    second: rogues_1_5
+  - first:
+      213: -5071131200471920365
+    second: rogues_2_5
+  - first:
+      213: 6846203025683337445
+    second: rogues_3_5
+  - first:
+      213: 849720604232162998
+    second: rogues_4_5
+  - first:
+      213: -6400796719417986759
+    second: rogues_5_5
+  - first:
+      213: 6436639705458941142
+    second: rogues_6_5
+  - first:
+      213: -8724345981096074633
+    second: rogues_0_6
+  - first:
+      213: 8936365803777138634
+    second: rogues_1_6
+  - first:
+      213: 2358901056627855869
+    second: rogues_2_6
+  - first:
+      213: 1466146151501651864
+    second: rogues_3_6
+  - first:
+      213: -8783086858412695403
+    second: rogues_4_6
+  - first:
+      213: -1856967436552312815
+    second: rogues_5_6
+  - first:
+      213: -6030913005513076809
+    second: rogues_6_6
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: rogues_0_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 699ce38c6c1bdebb0800000000000000
+      internalID: -4905068951815403114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01f5fb49f9621b50800000000000000
+      internalID: 6562424126474416398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d51e79afe73edaa60800000000000000
+      internalID: 7687050273500946781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_0
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a8d00571231ff0e0800000000000000
+      internalID: -2234045855734638429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_0
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b3b759ea35b3b70800000000000000
+      internalID: 8879783099588361070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_0
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e259329ad2582f20800000000000000
+      internalID: 3398057017560617698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_0
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3718e1481c99ebef0800000000000000
+      internalID: -90465886076501645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6815fdf27816ec7b0800000000000000
+      internalID: -5202113286314700410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75390bc7cceb89180800000000000000
+      internalID: -9108320460882275497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 972a1e677735a1e80800000000000000
+      internalID: -8207155598368595335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d18f4dcb066395ec0800000000000000
+      internalID: -3577768639856314339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 013ea475d9464edc0800000000000000
+      internalID: -3610650374307126512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb90c6b00ebd38b60800000000000000
+      internalID: 7747277539318172091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c8e912485c6e0750800000000000000
+      internalID: 6273070457295595712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 339153f229448afa0800000000000000
+      internalID: -5789301926336849613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a3108c4256c7d320800000000000000
+      internalID: 2582750968093348770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7c560fb1c3b6c090800000000000000
+      internalID: -8014520842144293765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92aaad57664f3210800000000000000
+      internalID: 1314847025982513820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54c5c81d940d56a60800000000000000
+      internalID: 7666762956134964293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 204583c7d941cba90800000000000000
+      internalID: -7296934629620558846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ca6eea13fbd913c0800000000000000
+      internalID: -4388234524720469310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5955c714bfbad9210800000000000000
+      internalID: 1341417359650084245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f32317111e2f92c0800000000000000
+      internalID: -4422765658118085642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27db5562dc8171f0800000000000000
+      internalID: -1048902402929076434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aab36d3e8d924a20800000000000000
+      internalID: 3045169532296739495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5c5d268fdaec4e50800000000000000
+      internalID: 6795064183544962142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4176a04b9864294d0800000000000000
+      internalID: -3129361233824028908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5e50e0c4505c6790800000000000000
+      internalID: -7535559751554277795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d1a5d5936bcb3e40800000000000000
+      internalID: 5637322987160314321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190eb3caed87d3450800000000000000
+      internalID: 6070140770532974737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 973c91fbf74a8d9d0800000000000000
+      internalID: -2749266703935749255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e42b89bcf2f0af0800000000000000
+      internalID: -428070888090218955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 484fdb83a6a8958a0800000000000000
+      internalID: -6315864813587270524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67d56cc90bd124180800000000000000
+      internalID: -9132704449972249226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b2751c824434be0800000000000000
+      internalID: -1494275709523776709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf833bdd8cad5b330800000000000000
+      internalID: 3726124822966778107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c14340ed6e1489640800000000000000
+      internalID: 5086888238938076188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 311987a8a09bf99b0800000000000000
+      internalID: -5071131200471920365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e05f0e0169920f50800000000000000
+      internalID: 6846203025683337445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6be96953360dacb00800000000000000
+      internalID: 849720604232162998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 931fa9beb4dcb27a0800000000000000
+      internalID: -6400796719417986759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_5
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dc1e0795b9835950800000000000000
+      internalID: 6436639705458941142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_0_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7726923cd85ece680800000000000000
+      internalID: -8724345981096074633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_1_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acf95150a59540c70800000000000000
+      internalID: 8936365803777138634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_2_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1d89453008cb020800000000000000
+      internalID: 2358901056627855869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_3_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89fdf05282cc85410800000000000000
+      internalID: 1466146151501651864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_4_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590e8ec79053c1680800000000000000
+      internalID: -8783086858412695403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_5_6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118e4d084f9ba36e0800000000000000
+      internalID: -1856967436552312815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rogues_6_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf0c1b1394ed4ca0800000000000000
+      internalID: -6030913005513076809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      rogues_0: -1662613486703163539
+      rogues_0_0: -4905068951815403114
+      rogues_0_1: -5202113286314700410
+      rogues_0_2: -5789301926336849613
+      rogues_0_3: 1341417359650084245
+      rogues_0_4: 5637322987160314321
+      rogues_0_5: 3726124822966778107
+      rogues_0_6: -8724345981096074633
+      rogues_1: -5918137915363136097
+      rogues_10: -6502872108531726933
+      rogues_11: -6565835137778244483
+      rogues_12: 6296023426331546674
+      rogues_13: -8582895898453060978
+      rogues_14: -5787033745658224487
+      rogues_15: -779178000821955330
+      rogues_16: 6318122654512930386
+      rogues_17: -644773305562672891
+      rogues_18: 3687545213055956518
+      rogues_19: 2783893222895161197
+      rogues_1_0: 6562424126474416398
+      rogues_1_1: -9108320460882275497
+      rogues_1_2: 2582750968093348770
+      rogues_1_3: -4422765658118085642
+      rogues_1_4: 6070140770532974737
+      rogues_1_5: 5086888238938076188
+      rogues_1_6: 8936365803777138634
+      rogues_2: 7598845908082315433
+      rogues_20: -1115302973846929897
+      rogues_21: -2498498304402662931
+      rogues_22: 9040946838189547898
+      rogues_23: 3078493119409997294
+      rogues_24: 8086551292566691165
+      rogues_25: 4025885058500790527
+      rogues_26: 3997349625540299793
+      rogues_27: -5479864878087252051
+      rogues_28: 256837912651675722
+      rogues_29: 5608883997597516285
+      rogues_2_0: 7687050273500946781
+      rogues_2_1: -8207155598368595335
+      rogues_2_2: -8014520842144293765
+      rogues_2_3: -1048902402929076434
+      rogues_2_4: -2749266703935749255
+      rogues_2_5: -5071131200471920365
+      rogues_2_6: 2358901056627855869
+      rogues_3: 6847130768412236191
+      rogues_30: -2094491032432744238
+      rogues_31: -8930648807531028900
+      rogues_32: 8622822618815760748
+      rogues_33: 3860134714905431866
+      rogues_34: -889892870527839143
+      rogues_35: 5509031573903990705
+      rogues_36: 5228109309645807972
+      rogues_37: -994114111691974414
+      rogues_38: -4966345734685538788
+      rogues_39: -2363425250398905029
+      rogues_3_0: -2234045855734638429
+      rogues_3_1: -3577768639856314339
+      rogues_3_2: 1314847025982513820
+      rogues_3_3: 3045169532296739495
+      rogues_3_4: -428070888090218955
+      rogues_3_5: 6846203025683337445
+      rogues_3_6: 1466146151501651864
+      rogues_4: 1024069151341385491
+      rogues_4_0: 8879783099588361070
+      rogues_4_1: -3610650374307126512
+      rogues_4_2: 7666762956134964293
+      rogues_4_3: 6795064183544962142
+      rogues_4_4: -6315864813587270524
+      rogues_4_5: 849720604232162998
+      rogues_4_6: -8783086858412695403
+      rogues_5: 248234936431850608
+      rogues_5_0: 3398057017560617698
+      rogues_5_1: 7747277539318172091
+      rogues_5_2: -7296934629620558846
+      rogues_5_3: -3129361233824028908
+      rogues_5_4: -9132704449972249226
+      rogues_5_5: -6400796719417986759
+      rogues_5_6: -1856967436552312815
+      rogues_6: -4187769825804618121
+      rogues_6_0: -90465886076501645
+      rogues_6_1: 6273070457295595712
+      rogues_6_2: -4388234524720469310
+      rogues_6_3: -7535559751554277795
+      rogues_6_4: -1494275709523776709
+      rogues_6_5: 6436639705458941142
+      rogues_6_6: -6030913005513076809
+      rogues_7: -1764452743288652820
+      rogues_8: 3327685065352914550
+      rogues_9: -3935264485411027069
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

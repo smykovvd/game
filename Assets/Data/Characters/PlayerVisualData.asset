@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e2f3b4c5d6478890a1b2c3d4e5f602, type: 3}
+  m_Name: PlayerVisualData
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 9100000, guid: d7c39efc647ff4a538512c0f8f71c549, type: 2}
+  defaultSprite: {fileID: 9033688841781920892, guid: 55eb0c8574101428daea6848f35f59c3, type: 3}
+  portraitIcon: {fileID: 0}
+  sortingLayerName: Player
+  sortingOrder: 0
+  visualScale: 1
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  pixelsPerUnit: 40
