@@ -23,6 +23,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        // Во время диалогов/выбора ввод игрока заблокирован (пробел уходит на пропуск реплики).
+        if (GameState.InputBlocked)
+        {
+            movement = Vector2.zero;
+            animationBridge?.UpdateLocomotion(movement, isAttacking);
+            return;
+        }
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
