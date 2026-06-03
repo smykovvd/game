@@ -259,17 +259,19 @@ public static class StorySceneBuilder
             for (int y = yMin; y <= yMax; y++)
                 Set(ground, x, y, groundTile);
 
-        // Поляна и сцены выбора (Распутье, Перекрёсток) рисуются развилкой на три рукава,
-        // остальные сцены — прямой тропой.
+        // Поляна и сцены выбора рисуются развилкой (всегда вправо), остальные — прямой
+        // тропой в своём направлении (разные сцены — разные стороны).
         bool crossroads = sceneName == S1 || sceneName == S2 || sceneName == S4;
+        var (fwd, side, len) = LayoutFor(sceneName);
+        int p1 = Mathf.RoundToInt(len * 0.3f);
+        int p2 = Mathf.RoundToInt(len * 0.55f);
+        int p3 = Mathf.RoundToInt(len * 0.8f);
+
         if (crossroads)
         {
             const int fork = 4;
-            // Вход слева на уровень игрока.
             for (int x = xMin; x <= fork; x++) { Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile); }
-            // Вертикальный «ствол» развилки.
             for (int y = -6; y <= 6; y++) Set(ground, fork, y, pathTile);
-            // Три рукава вправо — три судьбы (верх / середина / низ).
             for (int x = fork; x <= xMax; x++)
             {
                 Set(ground, x, 6, pathTile); Set(ground, x, 5, pathTile);
@@ -279,46 +281,74 @@ public static class StorySceneBuilder
         }
         else
         {
-            for (int x = xMin; x <= xMax; x++) { Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile); }
-        }
-
-        // Стены по всему периметру (по ним не пройти).
-        for (int x = xMin; x <= xMax; x++)
-        {
-            Set(collision, x, yMax, wallTile);
-            Set(collision, x, yMin, wallTile);
-        }
-        for (int y = yMin; y <= yMax; y++)
-        {
-            Set(collision, xMin, y, wallTile);
-            Set(collision, xMax, y, wallTile);
-        }
-
-        // На линейных сценах — перегородки-«комнаты» с проходом по центральной полосе
-        // (приходится петлять, больше беготни). Проход всегда открыт (y от -1 до 1).
-        if (!crossroads)
-        {
-            foreach (int wx in new[] { -2, 8, 14 })
-                for (int y = yMin + 1; y <= yMax - 1; y++)
-                    if (y < -1 || y > 1) Set(collision, wx, y, wallTile);
-        }
-
-        // Декорации — разбросаны неравномерно (по хэшу клетки), в стороне от полосы
-        // движения, рукавов развилки и перегородок.
-        for (int x = xMin + 2; x <= xMax - 2; x++)
-        {
-            for (int y = yMin + 2; y <= yMax - 2; y++)
+            // Двухклеточная тропа вдоль направления — от входа до выхода.
+            for (int t = -2; t <= len; t++)
             {
-                if (y >= -1 && y <= 1) continue;                                                 // полоса движения
-                if (crossroads && (y == 5 || y == 6 || y == -5 || y == -6 || x == 4)) continue;  // рукава развилки
-                if (!crossroads && (x == -2 || x == 8 || x == 14)) continue;                     // перегородки
-
-                int h = CellHash(x, y);
-                if (h % 100 >= 16) continue;                        // ~16% клеток — с декором
-                var t = decorTiles[(h / 100) % decorTiles.Length];  // и тайл «случайный»
-                if (t != null) Set(decor, x, y, t);
+                var a = fwd * t;
+                var b = a - side;
+                Set(ground, a.x, a.y, pathTile);
+                Set(ground, b.x, b.y, pathTile);
             }
         }
+
+        // Стены по всему периметру.
+        for (int x = xMin; x <= xMax; x++) { Set(collision, x, yMax, wallTile); Set(collision, x, yMin, wallTile); }
+        for (int y = yMin; y <= yMax; y++) { Set(collision, xMin, y, wallTile); Set(collision, xMax, y, wallTile); }
+
+        // Перегородки-«комнаты» поперёк направления, с проходом по тропе; плюс глухая
+        // стена позади игрока — чтобы направляла вперёд.
+        if (!crossroads)
+        {
+            int sLo = side.x != 0 ? xMin + 1 : yMin + 1;
+            int sHi = side.x != 0 ? xMax - 1 : yMax - 1;
+            foreach (int p in new[] { p1, p2, p3 })
+                for (int s = sLo; s <= sHi; s++)
+                {
+                    if (s >= -1 && s <= 1) continue; // проход по тропе
+                    var c = fwd * p + side * s;
+                    Set(collision, c.x, c.y, wallTile);
+                }
+            for (int s = sLo; s <= sHi; s++)
+            {
+                var c = fwd * -3 + side * s; // стена за спиной
+                Set(collision, c.x, c.y, wallTile);
+            }
+        }
+
+        // Декор структурными группами (одинаковые пропсы рядом), не на тропе/рукавах/перегородках.
+        bool Blocked(int x, int y)
+        {
+            if (crossroads)
+                return (y >= -1 && y <= 1) || y == 5 || y == 6 || y == -5 || y == -6 || x == 4;
+            int fc = x * fwd.x + y * fwd.y;
+            int sc = x * side.x + y * side.y;
+            return (sc >= -1 && sc <= 1) || fc == p1 || fc == p2 || fc == p3;
+        }
+
+        var clusterOffsets = new[]
+        {
+            new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1),
+            new Vector2Int(1, 1), new Vector2Int(2, 0), new Vector2Int(0, -1),
+        };
+        for (int cx = xMin + 2; cx <= xMax - 2; cx += 3)
+            for (int cy = yMin + 2; cy <= yMax - 2; cy += 3)
+            {
+                int h = CellHash(cx, cy);
+                if (h % 100 >= 38) continue;                        // ~38% узлов — группа
+                var t = decorTiles[(h / 100) % decorTiles.Length];  // один тип на всю группу
+                if (t == null) continue;
+                int count = 1 + (h / 7) % 3;                        // 1..3 штуки рядом
+                int placed = 0;
+                foreach (var off in clusterOffsets)
+                {
+                    if (placed >= count) break;
+                    int x = cx + off.x, y = cy + off.y;
+                    if (x < xMin + 1 || x > xMax - 1 || y < yMin + 1 || y > yMax - 1) continue;
+                    if (Blocked(x, y)) continue;
+                    Set(decor, x, y, t);
+                    placed++;
+                }
+            }
 
         // Нормализуем размер сюжетных предметов (осколок огромный из-за крупной картинки).
         foreach (var pickup in UnityEngine.Object.FindObjectsByType<StoryItemPickup>(FindObjectsSortMode.None))
@@ -333,6 +363,26 @@ public static class StorySceneBuilder
 
     static void Set(Tilemap map, int x, int y, TileBase tile)
         => map.SetTile(new Vector3Int(x, y, 0), tile);
+
+    // Направление сцены: куда идти от входа к выходу + перпендикуляр + длина.
+    // Линейные сцены смотрят в разные стороны для разнообразия.
+    static (Vector2Int fwd, Vector2Int side, int len) LayoutFor(string scene)
+    {
+        Vector2Int right = new Vector2Int(1, 0), left = new Vector2Int(-1, 0);
+        Vector2Int up = new Vector2Int(0, 1), down = new Vector2Int(0, -1);
+        Vector2Int sideForHoriz = new Vector2Int(0, 1);  // перпендикуляр для горизонтального движения
+        Vector2Int sideForVert = new Vector2Int(1, 0);   // перпендикуляр для вертикального
+
+        switch (scene)
+        {
+            case S3B: return (up, sideForVert, 9);    // Болото — вверх
+            case S3C: return (down, sideForVert, 9);  // Холм Эха — вниз
+            case S5A: return (left, sideForHoriz, 14); // Обитель Теней — влево
+            case S5B: return (up, sideForVert, 9);    // Сад Памяти — вверх
+            case S6: return (down, sideForVert, 9);   // Коридор — вниз
+            default: return (right, sideForHoriz, 19); // вправо (3A, 5C, 7 и сцены выбора)
+        }
+    }
 
     // Псевдослучайный хэш клетки — для неравномерного разброса декора.
     static int CellHash(int x, int y)
@@ -420,19 +470,29 @@ public static class StorySceneBuilder
 
         var fairen = CreateFairenDialog("Файрен", lines, playOnStart: true);
 
-        // Выход в дальнем правом краю — приходится пройти через все «комнаты».
-        CreateSceneExit(new Vector3(18f, 0f, 0f), target, requiredItem: "", lockedMsg: "", hint: fairen);
+        var (fwd, side, len) = LayoutFor(sceneName);
+        int p1 = Mathf.RoundToInt(len * 0.3f);
+        int p2 = Mathf.RoundToInt(len * 0.55f);
+        int p3 = Mathf.RoundToInt(len * 0.8f);
+        Vector3 At(int forward, int sideOff)
+        {
+            var c = fwd * forward + side * sideOff;
+            return new Vector3(c.x, c.y, 0f);
+        }
+
+        // Выход в дальнем конце — через все «комнаты», в направлении сцены.
+        CreateSceneExit(At(len, 0), target, requiredItem: "", lockedMsg: "", hint: fairen);
 
         if (withEnemies)
         {
-            // При входе во вторую комнату — боевая реплика Файрена.
+            // При входе — боевая реплика Файрена.
             if (!string.IsNullOrEmpty(combatLine))
-                CreateLineTrigger(new Vector3(3f, 0f, 0f), fairen, combatLine);
+                CreateLineTrigger(At(Mathf.RoundToInt(len * 0.15f), 0), fairen, combatLine);
 
-            // Тени-противники в «комнатах», в стороне от центральной полосы.
-            SpawnEnemy("WolfEnemy", new Vector3(5f, 3f, 0f));
-            SpawnEnemy("WolfEnemy", new Vector3(11f, -3f, 0f));
-            SpawnEnemy("PatrollingGuard", new Vector3(16f, 3f, 0f));
+            // Тени-противники — в «комнатах» между перегородками, в стороне от тропы.
+            SpawnEnemy("WolfEnemy", At((p1 + p2) / 2, 3));
+            SpawnEnemy("WolfEnemy", At((p2 + p3) / 2, -3));
+            SpawnEnemy("PatrollingGuard", At((p3 + len) / 2, 3));
         }
 
         Save(scene, sceneName);
