@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 /// <summary>
@@ -34,25 +35,121 @@ public static class StorySceneBuilder
     const string S3A = "Scene3A_TropaSumerek";
     const string S3B = "Scene3B_Boloto";
     const string S3C = "Scene3C_HolmEha";
+    const string S4 = "Scene4_Perekrestok";
+    const string S5A = "Scene5A_ObitelTeney";
+    const string S5B = "Scene5B_SadPamyati";
+    const string S5C = "Scene5C_TropaVetra";
+    const string S6 = "Scene6_Koridor";
+    const string S7 = "Scene7_SerdceLesa";
     const string SEnd = "Ending";
+
+    // Границы игровой области в клетках (включительно). Используются и для покраски,
+    // и для ограничения камеры — камера не выходит за пределы нарисованной сцены.
+    const int AreaXMin = -16, AreaXMax = 22, AreaYMin = -11, AreaYMax = 11;
 
     [MenuItem("Game/Story/1. Build Slice Scenes", false, 0)]
     public static void BuildSlice()
     {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Story Builder",
+                "Сначала выйди из режима Play (нажми ▶️ ещё раз, чтобы остановить игру), потом запусти сборку.",
+                "Понятно");
+            return;
+        }
+
         if (!EditorUtility.DisplayDialog("Story Builder",
-            "Будут созданы/перезаписаны сцены среза:\n" +
-            $"{S1}, {S2}, {S3A}, {S3B}, {S3C}, {SEnd}\nв папке {StoryDir}.\n\nПродолжить?",
+            "Будут созданы/перезаписаны все сцены истории:\n" +
+            "Поляна → Распутье → 3A/3B/3C → Перекрёсток → 5A/5B/5C → Коридор → Сердце Леса → Концовка\n" +
+            $"в папке {StoryDir}.\n\nПродолжить?",
             "Да, собрать", "Отмена"))
             return;
 
         EnsureFolder();
 
         // Порядок важен: сцена, на которую ссылаются, должна уже существовать на диске.
-        SafeBuild("Ending", BuildEnding);
-        SafeBuild(S3A, () => BuildBranch(S3A, "Тропа Сумерек", "Сумрак сгущается. Путь ведёт дальше."));
-        SafeBuild(S3B, () => BuildBranch(S3B, "Болото Несказанного", "Топь шепчет забытые слова."));
-        SafeBuild(S3C, () => BuildBranch(S3C, "Холм Эха", "Эхо повторяет твои шаги."));
-        SafeBuild(S2, BuildRasputye);
+        SafeBuild(SEnd, BuildEnding);
+        SafeBuild(S7, () => BuildBranch(S7, new[]
+        {
+            "Ты дошёл. Хотя дороги не было.",
+            "Ты всегда доходишь до этого места.",
+            "Вот он. Тот, кого ты всё это время обходил. Я стоял там… вместо тебя.",
+            "Лес не держал тебя. Ты просто не знал, как уйти. Я знал. Но не смог.",
+            "Посмотрим… сможешь ли ты."
+        }, SEnd));
+        SafeBuild(S6, () => BuildBranch(S6, new[]
+        {
+            "Теперь всё вместе. Без фильтров. Здесь я обычно замолкаю.",
+            "Это не разные пути. Это ты, разбитый на части. Я тоже был таким. Возможно… и остаюсь.",
+            "Вот что происходит, когда выборы не забываются. Ты не потерял их — ты их принёс.",
+            "Дальше я не смогу идти за тебя. Не потому что не хочу. Потому что… дальше нет меня."
+        }, S7, withEnemies: true, combatLine: "Вот что происходит, когда выборы не забываются. Ты не потерял их — ты их принёс."));
+        SafeBuild(S5A, () => BuildBranch(S5A, new[]
+        {
+            "Темнота — это не отсутствие. Это присутствие без имени.",
+            "Я дал имена некоторым из них. Это не помогло.",
+            "Они не нападали бы, если бы ты их не знал. Не беги. Не борись. Смотри.",
+            "Ты не победишь их. Ты перестанешь им сопротивляться — и они исчезнут."
+        }, S6, withEnemies: true, combatLine: "Они не нападали бы, если бы ты их не знал. Ты узнаёшь? Или всё ещё делаешь вид?"));
+        SafeBuild(S5B, () => BuildBranch(S5B, new[]
+        {
+            "Красиво, правда? Память всегда такая… сначала.",
+            "Я остался здесь однажды. Надолго.",
+            "Ты можешь остаться. Здесь никто не стареет. Я проверял.",
+            "Отпустить — не значит забыть. Ты начинаешь это понимать."
+        }, S6));
+        SafeBuild(S5C, () => BuildBranch(S5C, new[]
+        {
+            "Держись крепче… или отпусти всё сразу.",
+            "Я падал здесь. Много раз.",
+            "Свобода без опоры — это падение. Я понял это слишком поздно.",
+            "Ты стал легче. Вопрос — чего стало меньше? Иногда ответ — «меня»."
+        }, S6));
+        SafeBuild(S4, () => BuildChoiceScene(S4,
+            new[] { "Обитель Теней", "Сад Памяти", "Тропа Ветра" },
+            new[] { S5A, S5B, S5C },
+            new[] { 0, 1, 2 },
+            "Scene4_Perekrestok",
+            "Файрен: Теперь ты выбираешь себя. 1, 2 или 3.",
+            new[]
+            {
+                "Теперь ты выбираешь не путь. Ты выбираешь себя.",
+                "И это та часть, где всё обычно идёт… иначе.",
+                "Ты уже менялся. Просто не признал этого. Ты пытаешься вспомнить… не так ли?"
+            }));
+        SafeBuild(S3A, () => BuildBranch(S3A, new[]
+        {
+            "Свет не уходит. Он просто перестаёт быть уверенным.",
+            "Здесь ты всегда замедляешься.",
+            "Они появляются, когда ты почти решил… но не до конца. Они любят тебя — ты даёшь им повод существовать.",
+            "Иди. Ты всегда доходишь. Просто не всегда понимаешь как."
+        }, S4, withEnemies: true, combatLine: "Видишь их? Они появляются, когда ты почти решил… но не до конца."));
+        SafeBuild(S3B, () => BuildBranch(S3B, new[]
+        {
+            "Осторожно. Здесь тонут не тела.",
+            "Я однажды попытался вытащить кого-то отсюда… он не хотел уходить.",
+            "Слышишь? Это слова, которые так и не стали звуком. Некоторые из них — твои.",
+            "Иди по суше. В следующий раз они будут громче."
+        }, S4));
+        SafeBuild(S3C, () => BuildBranch(S3C, new[]
+        {
+            "Здесь никто не говорит первым.",
+            "Ты научился ждать ответа… от себя.",
+            "Эхо — это ты. Только чуть раньше. Или чуть честнее.",
+            "Ты услышал достаточно… или просто привык к шуму?"
+        }, S4));
+        SafeBuild(S2, () => BuildChoiceScene(S2,
+            new[] { "Тропа Сумерек", "Болото Несказанного", "Холм Эха" },
+            new[] { S3A, S3B, S3C },
+            new[] { 0, 1, 2 },
+            "Scene2_Rasputye",
+            "Файрен: Три дороги. И ни одной правильной. 1, 2 или 3.",
+            new[]
+            {
+                "Три дороги. И ни одной правильной.",
+                "Раньше ты спросил, есть ли четвёртая.",
+                "Ты можешь идти куда угодно. Но не сможешь не идти."
+            }));
         SafeBuild(S1, BuildPolyana);
 
         RegisterBuildScenes();
@@ -73,10 +170,200 @@ public static class StorySceneBuilder
         catch (Exception e) { Debug.LogError($"Story Builder: ошибка при сборке '{label}': {e}"); }
     }
 
+    [MenuItem("Game/Story/2. Paint Forest Tiles", false, 1)]
+    public static void PaintForest()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Story Builder", "Сначала выйди из режима Play.", "Понятно");
+            return;
+        }
+        if (!EditorUtility.DisplayDialog("Story Builder",
+            "Расписать игровые сцены тайлами Island (трава, тропа, камни, кусты)?\n" +
+            "Слои тайлов будут перекрашены заново; остальные объекты не тронуты.",
+            "Да, рисовать", "Отмена"))
+            return;
+
+        foreach (var s in new[] { S1, S2, S3A, S3B, S3C, S4, S5A, S5B, S5C, S6, S7 })
+            SafeBuild(s, () => PaintScene(s));
+
+        AssetDatabase.SaveAssets();
+        EditorSceneManager.OpenScene(ScenePath(S1));
+        EditorUtility.DisplayDialog("Story Builder", "Готово! Лес нарисован. Открыта Поляна — посмотри в Scene/Game.", "Ок");
+    }
+
+    static void PaintScene(string sceneName)
+    {
+        var scene = EditorSceneManager.OpenScene(ScenePath(sceneName));
+
+        var ground = FindTilemap("Tilemap_Ground");
+        var collision = FindTilemap("Tilemap_Collision");
+        var decor = FindTilemap("Tilemap_Decoration");
+        if (ground == null || collision == null || decor == null)
+        {
+            Debug.LogError($"PaintScene({sceneName}): не найдены слои Tilemap. Сначала собери сцены (пункт 1).");
+            return;
+        }
+
+        // Тема сцены: тёмные — Dungeon, Болото — вода Island, остальные — трава Island.
+        bool dungeon = sceneName == S3A || sceneName == S5A || sceneName == S6;
+        bool swamp = sceneName == S3B;
+
+        TileBase groundTile, pathTile, wallTile;
+        TileBase[] decorTiles;
+        if (dungeon)
+        {
+            groundTile = Tile("Dungeon", "Dungeon_24x24_5_4");
+            pathTile = groundTile;
+            wallTile = Tile("Dungeon", "Dungeon_24x24_4_2");
+            decorTiles = new[]
+            {
+                Tile("Dungeon", "Dungeon_24x24_13_0"), Tile("Dungeon", "Dungeon_24x24_12_5"),
+                Tile("Decor", "decor_1_1"), Tile("Decor", "decor_1_0"),
+                Tile("Decor", "decor_4_1"), Tile("Decor", "decor_6_3"),
+            };
+        }
+        else if (swamp)
+        {
+            groundTile = Tile("Island", "Island_24x24_4_7"); // вода
+            pathTile = Tile("Island", "Island_24x24_2_0");   // сухая тропа-трава
+            wallTile = Tile("Island", "Island_24x24_2_6");   // камни
+            decorTiles = new[]
+            {
+                Tile("Island", "Island_24x24_5_6"), Tile("Island", "Island_24x24_6_6"), // камыши
+                Tile("Island", "Island_24x24_4_5"),                                     // кувшинка
+                Tile("Island", "Island_24x24_1_1"), Tile("Decor", "decor_1_2"),
+            };
+        }
+        else
+        {
+            groundTile = Tile("Island", "Island_24x24_2_0");
+            pathTile = Tile("Island", "Island_24x24_5_2");
+            wallTile = Tile("Island", "Island_24x24_2_6");
+            decorTiles = new[]
+            {
+                Tile("Island", "Island_24x24_1_1"), Tile("Island", "Island_24x24_8_0"),
+                Tile("Island", "Island_24x24_8_2"), Tile("Decor", "decor_1_2"),
+                Tile("Decor", "decor_1_1"), Tile("Decor", "decor_4_1"),
+            };
+        }
+
+        ground.ClearAllTiles();
+        collision.ClearAllTiles();
+        decor.ClearAllTiles();
+
+        const int xMin = AreaXMin, xMax = AreaXMax, yMin = AreaYMin, yMax = AreaYMax;
+
+        // Земля/пол по всей области.
+        for (int x = xMin; x <= xMax; x++)
+            for (int y = yMin; y <= yMax; y++)
+                Set(ground, x, y, groundTile);
+
+        // Поляна и сцены выбора (Распутье, Перекрёсток) рисуются развилкой на три рукава,
+        // остальные сцены — прямой тропой.
+        bool crossroads = sceneName == S1 || sceneName == S2 || sceneName == S4;
+        if (crossroads)
+        {
+            const int fork = 4;
+            // Вход слева на уровень игрока.
+            for (int x = xMin; x <= fork; x++) { Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile); }
+            // Вертикальный «ствол» развилки.
+            for (int y = -6; y <= 6; y++) Set(ground, fork, y, pathTile);
+            // Три рукава вправо — три судьбы (верх / середина / низ).
+            for (int x = fork; x <= xMax; x++)
+            {
+                Set(ground, x, 6, pathTile); Set(ground, x, 5, pathTile);
+                Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile);
+                Set(ground, x, -6, pathTile); Set(ground, x, -5, pathTile);
+            }
+        }
+        else
+        {
+            for (int x = xMin; x <= xMax; x++) { Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile); }
+        }
+
+        // Стены по всему периметру (по ним не пройти).
+        for (int x = xMin; x <= xMax; x++)
+        {
+            Set(collision, x, yMax, wallTile);
+            Set(collision, x, yMin, wallTile);
+        }
+        for (int y = yMin; y <= yMax; y++)
+        {
+            Set(collision, xMin, y, wallTile);
+            Set(collision, xMax, y, wallTile);
+        }
+
+        // На линейных сценах — перегородки-«комнаты» с проходом по центральной полосе
+        // (приходится петлять, больше беготни). Проход всегда открыт (y от -1 до 1).
+        if (!crossroads)
+        {
+            foreach (int wx in new[] { -2, 8, 14 })
+                for (int y = yMin + 1; y <= yMax - 1; y++)
+                    if (y < -1 || y > 1) Set(collision, wx, y, wallTile);
+        }
+
+        // Декорации — разбросаны неравномерно (по хэшу клетки), в стороне от полосы
+        // движения, рукавов развилки и перегородок.
+        for (int x = xMin + 2; x <= xMax - 2; x++)
+        {
+            for (int y = yMin + 2; y <= yMax - 2; y++)
+            {
+                if (y >= -1 && y <= 1) continue;                                                 // полоса движения
+                if (crossroads && (y == 5 || y == 6 || y == -5 || y == -6 || x == 4)) continue;  // рукава развилки
+                if (!crossroads && (x == -2 || x == 8 || x == 14)) continue;                     // перегородки
+
+                int h = CellHash(x, y);
+                if (h % 100 >= 16) continue;                        // ~16% клеток — с декором
+                var t = decorTiles[(h / 100) % decorTiles.Length];  // и тайл «случайный»
+                if (t != null) Set(decor, x, y, t);
+            }
+        }
+
+        // Нормализуем размер сюжетных предметов (осколок огромный из-за крупной картинки).
+        foreach (var pickup in UnityEngine.Object.FindObjectsByType<StoryItemPickup>(FindObjectsSortMode.None))
+            pickup.transform.localScale = new Vector3(0.04f, 0.04f, 1f);
+
+        EditorUtility.SetDirty(ground);
+        EditorUtility.SetDirty(collision);
+        EditorUtility.SetDirty(decor);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    static void Set(Tilemap map, int x, int y, TileBase tile)
+        => map.SetTile(new Vector3Int(x, y, 0), tile);
+
+    // Псевдослучайный хэш клетки — для неравномерного разброса декора.
+    static int CellHash(int x, int y)
+    {
+        unchecked
+        {
+            int h = (x * 73856093) ^ (y * 19349663) ^ 0x5bd1e995;
+            h ^= h >> 13; h *= 0x27d4eb2f; h ^= h >> 16;
+            return h & 0x7fffffff;
+        }
+    }
+
+    static Tilemap FindTilemap(string name)
+    {
+        foreach (var tm in UnityEngine.Object.FindObjectsByType<Tilemap>(FindObjectsSortMode.None))
+            if (tm.name == name) return tm;
+        return null;
+    }
+
+    static TileBase Tile(string folder, string assetName)
+    {
+        var tile = AssetDatabase.LoadAssetAtPath<TileBase>($"Assets/Graphics/Environment/Tiles/{folder}/{assetName}.asset");
+        if (tile == null) Debug.LogError($"PaintScene: тайл не найден: {folder}/{assetName}");
+        return tile;
+    }
+
     // ---------- Сцена 1: Поляна ----------
     static void BuildPolyana()
     {
         var scene = NewScene();
+        CreateGrid();
         var player = SpawnPlayerAndCamera(Vector3.zero);
 
         // GameState живёт всю игру — создаём его в стартовой сцене.
@@ -87,57 +374,100 @@ public static class StorySceneBuilder
             "Файрен",
             new[]
             {
-                "Путник… ты ступил в Лес Судеб.",
-                "Я — Файрен. Я буду рядом, но выбор всегда твой.",
-                "Возьми Осколок судьбы — и ступай к развилке."
+                "…О. Ты снова здесь.",
+                "В прошлый раз ты проснулся быстрее.",
+                "Не спеши вставать. Мир никуда не денется. В отличие от памяти.",
+                "Ты ищешь имя? Здесь они не задерживаются. Я пробовал хранить их… не получилось.",
+                "Шаги без прошлого звучат особенно громко. Иди — где-то здесь лежит Осколок судьбы."
             },
             playOnStart: true);
 
-        // «Осколок судьбы».
-        CreatePickup("Осколок судьбы", "shard_of_fate", new Vector3(3f, 0f, 0f), fairen,
-            "Осколок судьбы теперь с тобой.");
+        // «Осколок судьбы» — спрятан в стороне от тропы, его нужно поискать.
+        CreatePickup("Осколок судьбы", "shard_of_fate", new Vector3(-4f, 8f, 0f), fairen,
+            "Нашёл. Хотя… такие вещи не находят. Это не предмет — это вопрос, на который ты уже отвечал.");
 
-        // Переход на Распутье — только после подбора осколка.
-        CreateSceneExit(new Vector3(7f, 0f, 0f), S2, requiredItem: "shard_of_fate",
-            lockedMsg: "Сначала возьми Осколок судьбы.", hint: fairen);
+        // Переход на Распутье в дальнем правом краю — только после подбора осколка.
+        CreateSceneExit(new Vector3(19f, 0f, 0f), S2, requiredItem: "shard_of_fate",
+            lockedMsg: "Сначала найди Осколок судьбы.", hint: fairen);
 
         Save(scene, S1);
     }
 
-    // ---------- Сцена 2: Распутье ----------
-    static void BuildRasputye()
+    // ---------- Сцена выбора (Распутье, Перекрёсток) ----------
+    static void BuildChoiceScene(string sceneName, string[] options, string[] scenes, int[] votes,
+        string choiceKey, string hint, string[] introLines = null)
     {
         var scene = NewScene();
+        CreateGrid();
         SpawnPlayerAndCamera(Vector3.zero);
+
+        if (introLines != null && introLines.Length > 0)
+            CreateFairenDialog("Файрен", introLines, playOnStart: true);
 
         var choiceManager = CreateChoiceUI();
-
-        // Развилка: три пути, каждый голосует за свою концовку (0/1/2).
-        CreateChoiceTrigger(
-            new Vector3(4f, 0f, 0f),
-            choiceManager,
-            options: new[] { "Тропа Сумерек", "Болото Несказанного", "Холм Эха" },
-            scenes: new[] { S3A, S3B, S3C },
-            votes: new[] { 0, 1, 2 },
-            choiceKey: "Scene2_Rasputye",
-            hint: "Файрен: Три пути — три судьбы. Выбери: 1, 2 или 3.");
-
-        Save(scene, S2);
-    }
-
-    // ---------- Сцены 3A/3B/3C: ветки-заглушки ----------
-    static void BuildBranch(string sceneName, string title, string fairenLine)
-    {
-        var scene = NewScene();
-        SpawnPlayerAndCamera(Vector3.zero);
-
-        var fairen = CreateFairenDialog("Файрен", new[] { $"{title}. {fairenLine}", "Иди дальше, к сердцу леса." },
-            playOnStart: true);
-
-        // Пока ветки ведут сразу к концовке (позже здесь появятся Сцена 4 → 5 → 6 → 7).
-        CreateSceneExit(new Vector3(6f, 0f, 0f), SEnd, requiredItem: "", lockedMsg: "", hint: fairen);
+        CreateChoiceTrigger(new Vector3(4f, 0f, 0f), choiceManager, options, scenes, votes, choiceKey, hint);
 
         Save(scene, sceneName);
+    }
+
+    // ---------- Линейная сцена-ветка (3A/B/C, 5A/B/C, Коридор, Сердце Леса) ----------
+    static void BuildBranch(string sceneName, string[] lines, string target,
+        bool withEnemies = false, string combatLine = null)
+    {
+        var scene = NewScene();
+        CreateGrid();
+        SpawnPlayerAndCamera(Vector3.zero);
+
+        var fairen = CreateFairenDialog("Файрен", lines, playOnStart: true);
+
+        // Выход в дальнем правом краю — приходится пройти через все «комнаты».
+        CreateSceneExit(new Vector3(18f, 0f, 0f), target, requiredItem: "", lockedMsg: "", hint: fairen);
+
+        if (withEnemies)
+        {
+            // При входе во вторую комнату — боевая реплика Файрена.
+            if (!string.IsNullOrEmpty(combatLine))
+                CreateLineTrigger(new Vector3(3f, 0f, 0f), fairen, combatLine);
+
+            // Тени-противники в «комнатах», в стороне от центральной полосы.
+            SpawnEnemy("WolfEnemy", new Vector3(5f, 3f, 0f));
+            SpawnEnemy("WolfEnemy", new Vector3(11f, -3f, 0f));
+            SpawnEnemy("PatrollingGuard", new Vector3(16f, 3f, 0f));
+        }
+
+        Save(scene, sceneName);
+    }
+
+    static void SpawnEnemy(string prefabName, Vector3 pos)
+    {
+        var src = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/Prefabs/Characters/NPC/{prefabName}.prefab");
+        if (src == null)
+        {
+            Debug.LogError($"SpawnEnemy: префаб не найден: {prefabName}");
+            return;
+        }
+        var e = (GameObject)PrefabUtility.InstantiatePrefab(src);
+        e.transform.position = pos;
+
+        // Затемняем под «тень».
+        var sr = e.GetComponentInChildren<SpriteRenderer>();
+        if (sr != null) sr.color = new Color(0.14f, 0.10f, 0.22f, 0.92f);
+    }
+
+    static void CreateLineTrigger(Vector3 pos, FairenDialog dialog, string line)
+    {
+        var go = new GameObject("FairenLineTrigger");
+        go.transform.position = pos;
+
+        var col = go.AddComponent<BoxCollider2D>();
+        col.isTrigger = true;
+        col.size = new Vector2(2f, 8f);
+
+        var t = go.AddComponent<FairenLineTrigger>();
+        var so = new SerializedObject(t);
+        so.FindProperty("dialog").objectReferenceValue = dialog;
+        so.FindProperty("line").stringValue = line;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     // ---------- Экран концовки ----------
@@ -191,6 +521,27 @@ public static class StorySceneBuilder
     static Scene NewScene()
         => EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
+    // Холст для рисования тайлами: Grid + три слоя (земля, стены, декор).
+    static void CreateGrid()
+    {
+        var gridGo = new GameObject("Grid", typeof(Grid));
+        gridGo.GetComponent<Grid>().cellSize = new Vector3(1f, 1f, 0f);
+
+        CreateTilemapLayer(gridGo.transform, "Tilemap_Ground", 0, false);
+        CreateTilemapLayer(gridGo.transform, "Tilemap_Collision", 1, true);
+        CreateTilemapLayer(gridGo.transform, "Tilemap_Decoration", 2, false);
+    }
+
+    static void CreateTilemapLayer(Transform parent, string name, int sortingOrder, bool withCollider)
+    {
+        var go = new GameObject(name, typeof(Tilemap), typeof(TilemapRenderer));
+        go.transform.SetParent(parent, false);
+        // Слой сортировки Default — рисуется под игроком (он на верхнем слое).
+        go.GetComponent<TilemapRenderer>().sortingOrder = sortingOrder;
+        if (withCollider)
+            go.AddComponent<TilemapCollider2D>();
+    }
+
     static GameObject SpawnPlayerAndCamera(Vector3 playerPos)
     {
         var playerSrc = AssetDatabase.LoadAssetAtPath<GameObject>(PlayerPrefab);
@@ -201,7 +552,14 @@ public static class StorySceneBuilder
         var cam = (GameObject)PrefabUtility.InstantiatePrefab(camSrc);
         cam.transform.position = new Vector3(playerPos.x, playerPos.y, -10f);
         var follow = cam.GetComponent<CameraFollow>();
-        if (follow != null) follow.target = player.transform;
+        if (follow != null)
+        {
+            follow.target = player.transform;
+            // Камера не выходит за пределы нарисованной области (в мировых координатах).
+            follow.useBounds = true;
+            follow.boundsMin = new Vector2(AreaXMin, AreaYMin);
+            follow.boundsMax = new Vector2(AreaXMax + 1, AreaYMax + 1);
+        }
 
         return player;
     }
@@ -243,9 +601,12 @@ public static class StorySceneBuilder
     {
         var go = new GameObject(displayName);
         go.transform.position = pos;
+        // circle.png — 1920px при PPU 100 (~19 юнитов), поэтому сильно уменьшаем.
+        go.transform.localScale = new Vector3(0.04f, 0.04f, 1f);
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Graphics/UI/Sprites/circle.png");
+        sr.sortingOrder = 10;
         sr.color = new Color(0.6f, 0.85f, 1f, 1f);
         if (sr.sprite == null)
             Debug.LogWarning("CreatePickup: спрайт circle.png не загрузился — назначь спрайт предмету вручную.");
@@ -288,7 +649,7 @@ public static class StorySceneBuilder
 
         var panelSrc = AssetDatabase.LoadAssetAtPath<GameObject>(ChoicePanelPrefab);
         var panel = (GameObject)PrefabUtility.InstantiatePrefab(panelSrc, canvas.transform);
-        SetRegion(panel.GetComponent<RectTransform>(), 0.2f, 0.25f, 0.8f, 0.75f, 0);
+        SetRegion(panel.GetComponent<RectTransform>(), 0.18f, 0.2f, 0.82f, 0.8f, 0);
 
         var gmSrc = AssetDatabase.LoadAssetAtPath<GameObject>(GameManagerPrefab);
         var gm = (GameObject)PrefabUtility.InstantiatePrefab(gmSrc);
@@ -297,6 +658,35 @@ public static class StorySceneBuilder
         var buttonsContainer = panel.transform.Find("ButtonsContainer");
         var closeButton = panel.transform.Find("CloseButton")?.GetComponent<Button>();
         var title = panel.transform.Find("Title")?.GetComponent<TextMeshProUGUI>();
+
+        // Чиним раскладку кнопок: у контейнера был нулевой размер и горизонтальная
+        // раскладка — варианты налезали друг на друга. Делаем вертикальный список
+        // во всю ширину панели с отступами.
+        if (buttonsContainer != null)
+        {
+            SetRegion(buttonsContainer.GetComponent<RectTransform>(), 0.05f, 0.06f, 0.95f, 0.62f, 8f);
+
+            var oldLayout = buttonsContainer.GetComponent<HorizontalOrVerticalLayoutGroup>();
+            if (oldLayout != null) UnityEngine.Object.DestroyImmediate(oldLayout);
+
+            var v = buttonsContainer.gameObject.AddComponent<VerticalLayoutGroup>();
+            v.spacing = 12;
+            v.padding = new RectOffset(10, 10, 10, 10);
+            v.childAlignment = TextAnchor.UpperCenter;
+            v.childControlWidth = true;
+            v.childControlHeight = true;
+            v.childForceExpandWidth = true;
+            v.childForceExpandHeight = true;
+        }
+
+        // Подсказку Файрена (Title) растягиваем по верху панели и центрируем.
+        if (title != null)
+        {
+            SetRegion(title.rectTransform, 0.05f, 0.64f, 0.95f, 0.96f, 6f);
+            title.alignment = TextAlignmentOptions.Center;
+            title.enableAutoSizing = false;
+            title.fontSize = 30;
+        }
 
         var so = new SerializedObject(manager);
         so.FindProperty("choicePanel").objectReferenceValue = panel;
@@ -449,6 +839,9 @@ public static class StorySceneBuilder
             MainMenuScene,
             ScenePath(S1), ScenePath(S2),
             ScenePath(S3A), ScenePath(S3B), ScenePath(S3C),
+            ScenePath(S4),
+            ScenePath(S5A), ScenePath(S5B), ScenePath(S5C),
+            ScenePath(S6), ScenePath(S7),
             ScenePath(SEnd),
         };
 

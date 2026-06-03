@@ -6,8 +6,56 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 29853dc8844bb4beaa421f1f1fcbd449
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene1_Polyana.unity
+    guid: 8d819484f1a0c4d14bedbadab372cd71
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene2_Rasputye.unity
+    guid: 6274d848fa8594025966d382ce2bcab8
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene3A_TropaSumerek.unity
+    guid: cfd0194345d5345a681b0370bcbc547f
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene3B_Boloto.unity
+    guid: 123e85de220ee42918082d56007c7b6d
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene3C_HolmEha.unity
+    guid: 6ecdbd4b05bcb4b048a995a19dd1a03e
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene4_Perekrestok.unity
+    guid: 8d82ab676b6d14a08b6a8719fea97558
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene5A_ObitelTeney.unity
+    guid: 953517b9455894a77b4b10f408337ec5
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene5B_SadPamyati.unity
+    guid: c5bca027ffa1142cbbeb86e4a952616e
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene5C_TropaVetra.unity
+    guid: 58853787781ef46cf880c8030858de23
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene6_Koridor.unity
+    guid: 324ba9c8e292748a5a6da3d12ac1f9f2
+  - enabled: 1
+    path: Assets/Scenes/Story/Scene7_SerdceLesa.unity
+    guid: a5eb38e4cfffb4406a5b54acc2ca3676
+  - enabled: 1
+    path: Assets/Scenes/Story/Ending.unity
+    guid: c632181f7c0664ea5b7ecf1134fec3c5
+  - enabled: 1
+    path: "Assets/Scenes/\u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442.unity"
+    guid: 76bcf5e34b22ea54aa587c4cc0bd3e54
+  - enabled: 1
+    path: "Assets/Scenes/\u043A\u0430\u043C\u043D\u0438.unity"
+    guid: a8661ddcaac1d3445ac2c62832ae1a68
+  - enabled: 1
     path: "Assets/Scenes/\u0432\u0440\u0430\u0433\u0438+\u0442\u0435\u043B\u0435\u043F\u043E\u0440\u0442.unity"
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/baseScene.unity
+    guid: 255572125fa70ac49b878ef7adb53505
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8384535452e274243a2d5a719538bd1c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
