@@ -688,7 +688,7 @@ public static class StorySceneBuilder
         var scene = NewScene();
 
         var canvas = CreateCanvas();
-        var bg = AddPanel(canvas.transform, new Color(0.05f, 0.04f, 0.08f, 1f));
+        var bg = AddPanel(canvas.transform, new Color(0.05f, 0.04f, 0.08f, 0.6f));
         SetRegion(bg.rectTransform, 0, 0, 1, 1, 0);
 
         var symbol = AddImage(canvas.transform, "Symbol");
@@ -756,6 +756,32 @@ public static class StorySceneBuilder
         so.ApplyModifiedPropertiesWithoutUndo();
 
         UnityEventTools.AddPersistentListener(button.onClick, ending.ReturnToMenu);
+
+        // Простой фон-сцена за полупрозрачным UI: зелень с цветами.
+        var camSrc = AssetDatabase.LoadAssetAtPath<GameObject>(CameraPrefab);
+        var cam = (GameObject)PrefabUtility.InstantiatePrefab(camSrc);
+        cam.transform.position = new Vector3(0f, 0f, -10f);
+
+        CreateGrid();
+        var ground = FindTilemap("Tilemap_Ground");
+        var decorMap = FindTilemap("Tilemap_Decoration");
+        var grass = Tile("Island", "Island_24x24_2_0");
+        var flowerA = Tile("Island", "Island_24x24_8_0");
+        var flowerB = Tile("Island", "Island_24x24_8_2");
+        var bush = Tile("Island", "Island_24x24_1_1");
+
+        for (int x = -12; x <= 12; x++)
+            for (int y = -7; y <= 7; y++)
+                Set(ground, x, y, grass);
+
+        var spots = new (int x, int y, TileBase t)[]
+        {
+            (-9, 5, flowerA), (-5, -4, bush), (8, 4, flowerB), (10, -3, flowerA),
+            (-10, -5, flowerB), (6, 6, bush), (-2, -6, flowerA), (11, 2, flowerB),
+            (3, 5, flowerA), (-7, 3, flowerB),
+        };
+        foreach (var s in spots)
+            if (s.t != null) Set(decorMap, s.x, s.y, s.t);
 
         Save(scene, SEnd);
     }
