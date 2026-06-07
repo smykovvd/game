@@ -192,6 +192,52 @@ public static class StorySceneBuilder
         EditorUtility.DisplayDialog("Story Builder", "Готово! Лес нарисован. Открыта Поляна — посмотри в Scene/Game.", "Ок");
     }
 
+    [MenuItem("Game/Story/3. Capture Current Scene Tiles", false, 2)]
+    public static void CaptureCurrentScene()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Story Builder", "Сначала выйди из режима Play.", "Понятно");
+            return;
+        }
+
+        var scene = EditorSceneManager.GetActiveScene();
+        var ground = FindTilemap("Tilemap_Ground");
+        var collision = FindTilemap("Tilemap_Collision");
+        var decor = FindTilemap("Tilemap_Decoration");
+        if (ground == null || collision == null || decor == null)
+        {
+            EditorUtility.DisplayDialog("Story Builder",
+                "В открытой сцене нет слоёв Tilemap. Открой игровую сцену (из Assets/Scenes/Story).", "Ок");
+            return;
+        }
+
+        var lines = new List<string>();
+        CaptureLayer(lines, "Ground", ground);
+        CaptureLayer(lines, "Collision", collision);
+        CaptureLayer(lines, "Decoration", decor);
+
+        Directory.CreateDirectory($"{StoryDir}/Captures");
+        File.WriteAllLines(CapturePath(scene.name), lines);
+        AssetDatabase.Refresh();
+
+        EditorUtility.DisplayDialog("Story Builder",
+            $"Слепок сцены «{scene.name}» сохранён ({lines.Count} тайлов).\n" +
+            "Теперь кнопка Paint будет рисовать эту сцену именно так, как ты нарисовала.", "Отлично");
+    }
+
+    static void CaptureLayer(List<string> lines, string layer, Tilemap map)
+    {
+        foreach (var pos in map.cellBounds.allPositionsWithin)
+        {
+            var t = map.GetTile(pos);
+            if (t == null) continue;
+            string p = AssetDatabase.GetAssetPath(t);
+            if (string.IsNullOrEmpty(p)) continue;
+            lines.Add($"{layer}|{pos.x}|{pos.y}|{p}");
+        }
+    }
+
     static void PaintScene(string sceneName)
     {
         var scene = EditorSceneManager.OpenScene(ScenePath(sceneName));
@@ -202,6 +248,14 @@ public static class StorySceneBuilder
         if (ground == null || collision == null || decor == null)
         {
             Debug.LogError($"PaintScene({sceneName}): не найдены слои Tilemap. Сначала собери сцены (пункт 1).");
+            return;
+        }
+
+        // Если для сцены есть сохранённый «слепок» (ты нарисовала её руками) — воспроизводим
+        // именно его, а не процедурную генерацию.
+        if (TryReplayCapture(sceneName, ground, collision, decor))
+        {
+            FinalizeScene(scene, ground, collision, decor);
             return;
         }
 
@@ -232,6 +286,7 @@ public static class StorySceneBuilder
             {
                 Tile("Island", "Island_24x24_5_6"), Tile("Island", "Island_24x24_6_6"), // камыши
                 Tile("Island", "Island_24x24_4_5"),                                     // кувшинка
+                Tile("Island", "Island_24x24_8_0"),                                     // цветы
                 Tile("Island", "Island_24x24_1_1"), Tile("Decor", "decor_1_2"),
             };
         }
@@ -242,8 +297,9 @@ public static class StorySceneBuilder
             wallTile = Tile("Island", "Island_24x24_2_6");
             decorTiles = new[]
             {
-                Tile("Island", "Island_24x24_1_1"), Tile("Island", "Island_24x24_8_0"),
-                Tile("Island", "Island_24x24_8_2"), Tile("Decor", "decor_1_2"),
+                Tile("Island", "Island_24x24_8_0"), Tile("Island", "Island_24x24_8_1"), // цветы
+                Tile("Island", "Island_24x24_8_2"), Tile("Island", "Island_24x24_8_3"), // цветы
+                Tile("Island", "Island_24x24_1_1"), Tile("Decor", "decor_1_2"),
                 Tile("Decor", "decor_1_1"), Tile("Decor", "decor_4_1"),
             };
         }
@@ -262,6 +318,8 @@ public static class StorySceneBuilder
         // Поляна и сцены выбора рисуются развилкой (всегда вправо), остальные — прямой
         // тропой в своём направлении (разные сцены — разные стороны).
         bool crossroads = sceneName == S1 || sceneName == S2 || sceneName == S4;
+        // Перегородки-«комнаты» оставляем только на травяных линейных сценах.
+        bool partitions = !crossroads && !dungeon && !swamp;
         var (fwd, side, len) = LayoutFor(sceneName);
         int p1 = Mathf.RoundToInt(len * 0.3f);
         int p2 = Mathf.RoundToInt(len * 0.55f);
@@ -301,16 +359,20 @@ public static class StorySceneBuilder
         {
             int sLo = side.x != 0 ? xMin + 1 : yMin + 1;
             int sHi = side.x != 0 ? xMax - 1 : yMax - 1;
-            foreach (int p in new[] { p1, p2, p3 })
-                for (int s = sLo; s <= sHi; s++)
-                {
-                    if (s >= -1 && s <= 1) continue; // проход по тропе
-                    var c = fwd * p + side * s;
-                    Set(collision, c.x, c.y, wallTile);
-                }
+
+            if (partitions)
+                foreach (int p in new[] { p1, p2, p3 })
+                    for (int s = sLo; s <= sHi; s++)
+                    {
+                        if (s >= -1 && s <= 1) continue; // проход по тропе
+                        var c = fwd * p + side * s;
+                        Set(collision, c.x, c.y, wallTile);
+                    }
+
+            // Глухая стена за спиной — направляет вперёд (на всех линейных сценах).
             for (int s = sLo; s <= sHi; s++)
             {
-                var c = fwd * -3 + side * s; // стена за спиной
+                var c = fwd * -3 + side * s;
                 Set(collision, c.x, c.y, wallTile);
             }
         }
@@ -322,7 +384,9 @@ public static class StorySceneBuilder
                 return (y >= -1 && y <= 1) || y == 5 || y == 6 || y == -5 || y == -6 || x == 4;
             int fc = x * fwd.x + y * fwd.y;
             int sc = x * side.x + y * side.y;
-            return (sc >= -1 && sc <= 1) || fc == p1 || fc == p2 || fc == p3;
+            if (sc >= -1 && sc <= 1) return true;
+            if (partitions && (fc == p1 || fc == p2 || fc == p3)) return true;
+            return false;
         }
 
         var clusterOffsets = new[]
@@ -334,7 +398,7 @@ public static class StorySceneBuilder
             for (int cy = yMin + 2; cy <= yMax - 2; cy += 3)
             {
                 int h = CellHash(cx, cy);
-                if (h % 100 >= 38) continue;                        // ~38% узлов — группа
+                if (h % 100 >= 50) continue;                        // ~50% узлов — группа
                 var t = decorTiles[(h / 100) % decorTiles.Length];  // один тип на всю группу
                 if (t == null) continue;
                 int count = 1 + (h / 7) % 3;                        // 1..3 штуки рядом
@@ -350,6 +414,11 @@ public static class StorySceneBuilder
                 }
             }
 
+        FinalizeScene(scene, ground, collision, decor);
+    }
+
+    static void FinalizeScene(Scene scene, Tilemap ground, Tilemap collision, Tilemap decor)
+    {
         // Нормализуем размер сюжетных предметов (осколок огромный из-за крупной картинки).
         foreach (var pickup in UnityEngine.Object.FindObjectsByType<StoryItemPickup>(FindObjectsSortMode.None))
             pickup.transform.localScale = new Vector3(0.04f, 0.04f, 1f);
@@ -359,6 +428,33 @@ public static class StorySceneBuilder
         EditorUtility.SetDirty(decor);
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
+    }
+
+    // Путь к файлу-«слепку» тайлов сцены.
+    static string CapturePath(string sceneName) => $"{StoryDir}/Captures/{sceneName}.txt";
+
+    // Воспроизводит сохранённый слепок тайлов (если он есть). true — если воспроизвели.
+    static bool TryReplayCapture(string sceneName, Tilemap ground, Tilemap collision, Tilemap decor)
+    {
+        string path = CapturePath(sceneName);
+        if (!File.Exists(path)) return false;
+
+        ground.ClearAllTiles();
+        collision.ClearAllTiles();
+        decor.ClearAllTiles();
+
+        foreach (var raw in File.ReadAllLines(path))
+        {
+            if (string.IsNullOrWhiteSpace(raw)) continue;
+            var parts = raw.Split('|');
+            if (parts.Length != 4) continue;
+            var map = parts[0] == "Ground" ? ground : parts[0] == "Collision" ? collision : decor;
+            if (!int.TryParse(parts[1], out int x) || !int.TryParse(parts[2], out int y)) continue;
+            var tile = AssetDatabase.LoadAssetAtPath<TileBase>(parts[3]);
+            if (tile != null) map.SetTile(new Vector3Int(x, y, 0), tile);
+        }
+        Debug.Log($"PaintScene: '{sceneName}' воспроизведена из слепка.");
+        return true;
     }
 
     static void Set(Tilemap map, int x, int y, TileBase tile)
@@ -509,6 +605,14 @@ public static class StorySceneBuilder
         var e = (GameObject)PrefabUtility.InstantiatePrefab(src);
         e.transform.position = pos;
 
+        // Без EnemyHealth по врагу нельзя попасть — добавляем, если нет.
+        if (e.GetComponent<EnemyHealth>() == null)
+            e.AddComponent<EnemyHealth>();
+
+        // Чтобы кинематический враг ловил удар-триггер.
+        var rb = e.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.useFullKinematicContacts = true;
+
         // Затемняем под «тень».
         var sr = e.GetComponentInChildren<SpriteRenderer>();
         if (sr != null) sr.color = new Color(0.14f, 0.10f, 0.22f, 0.92f);
@@ -621,7 +725,24 @@ public static class StorySceneBuilder
             follow.boundsMax = new Vector2(AreaXMax + 1, AreaYMax + 1);
         }
 
+        EnsureAttackHitbox(player);
         return player;
+    }
+
+    // Игроку нужен дочерний триггер-хитбокс, иначе атака (пробел) ни по кому не попадает.
+    static void EnsureAttackHitbox(GameObject player)
+    {
+        var pm = player.GetComponent<PlayerMovement>();
+        if (pm == null || pm.attackHitbox != null) return;
+
+        var hb = new GameObject("AttackHitbox");
+        hb.transform.SetParent(player.transform, false);
+        var col = hb.AddComponent<BoxCollider2D>();
+        col.isTrigger = true;
+        col.size = new Vector2(1.2f, 1.2f);
+        hb.AddComponent<AttackHitbox>();
+        hb.SetActive(false);                 // включается только на время удара
+        pm.attackHitbox = hb;                // коллайдер наследует Rigidbody2D игрока → триггеры срабатывают
     }
 
     static FairenDialog CreateFairenDialog(string speaker, string[] lines, bool playOnStart)
