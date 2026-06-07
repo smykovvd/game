@@ -14,6 +14,9 @@ public class StoryItemPickup : MonoBehaviour
     [SerializeField] private string itemId = "shard_of_fate";
     [SerializeField] private string displayName = "Осколок судьбы";
 
+    [Tooltip("За какую концовку (0/1/2) голосует подбор предмета. -1 = не влияет.")]
+    [SerializeField] private int endingVote = -1;
+
     [Header("Как подбирается")]
     [Tooltip("true — подбор сразу при касании; false — по клавише взаимодействия.")]
     [SerializeField] private bool pickOnTouch = true;
@@ -57,6 +60,8 @@ public class StoryItemPickup : MonoBehaviour
         picked = true;
 
         GameState.Instance.AddItem(itemId);
+        if (endingVote >= 0)
+            GameState.Instance.RecordChoice($"item_{itemId}", 0, endingVote);
         Debug.Log($"Подобран предмет: {displayName} ({itemId})");
 
         if (pickupDialog != null && !string.IsNullOrEmpty(pickupLine))

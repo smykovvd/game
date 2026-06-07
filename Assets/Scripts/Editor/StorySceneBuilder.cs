@@ -76,35 +76,52 @@ public static class StorySceneBuilder
             "Вот он. Тот, кого ты всё это время обходил. Я стоял там… вместо тебя.",
             "Лес не держал тебя. Ты просто не знал, как уйти. Я знал. Но не смог.",
             "Посмотрим… сможешь ли ты."
-        }, SEnd));
+        }, SEnd, exitPos: new Vector3(3.06f, 8.98f, 0f), spawnPos: new Vector3(-13.33f, -6.57f, 0f)));
         SafeBuild(S6, () => BuildBranch(S6, new[]
         {
             "Теперь всё вместе. Без фильтров. Здесь я обычно замолкаю.",
             "Это не разные пути. Это ты, разбитый на части. Я тоже был таким. Возможно… и остаюсь.",
             "Вот что происходит, когда выборы не забываются. Ты не потерял их — ты их принёс.",
             "Дальше я не смогу идти за тебя. Не потому что не хочу. Потому что… дальше нет меня."
-        }, S7, withEnemies: true, combatLine: "Вот что происходит, когда выборы не забываются. Ты не потерял их — ты их принёс."));
+        }, S7, withEnemies: true, combatLine: "Вот что происходит, когда выборы не забываются. Ты не потерял их — ты их принёс.",
+            exitPos: new Vector3(-9.58f, 2.85f, 0f), spawnPos: new Vector3(10.49f, -1.8f, 0f),
+            enemyList: new (string, Vector3)[]
+            {
+                ("WolfEnemy", new Vector3(-13.45f, -7.5f, 0f)),
+                ("WolfEnemy", new Vector3(2.4f, -3.24f, 0f)),
+                ("PatrollingGuard", new Vector3(16.51f, 1.82f, 0f)),
+            }));
         SafeBuild(S5A, () => BuildBranch(S5A, new[]
         {
             "Темнота — это не отсутствие. Это присутствие без имени.",
             "Я дал имена некоторым из них. Это не помогло.",
             "Они не нападали бы, если бы ты их не знал. Не беги. Не борись. Смотри.",
             "Ты не победишь их. Ты перестанешь им сопротивляться — и они исчезнут."
-        }, S6, withEnemies: true, combatLine: "Они не нападали бы, если бы ты их не знал. Ты узнаёшь? Или всё ещё делаешь вид?"));
+        }, S6, withEnemies: true, combatLine: "Они не нападали бы, если бы ты их не знал. Ты узнаёшь? Или всё ещё делаешь вид?",
+            exitPos: new Vector3(10.41f, -1.29f, 0f), spawnPos: new Vector3(20f, 9f, 0f),
+            enemyList: new (string, Vector3)[]
+            {
+                ("WolfEnemy", new Vector3(2.5f, 3f, 0f)),
+                ("WolfEnemy", new Vector3(18.16f, -8.6f, 0f)),
+                ("PatrollingGuard", new Vector3(-13.25f, 8.21f, 0f)),
+            }));
         SafeBuild(S5B, () => BuildBranch(S5B, new[]
         {
             "Красиво, правда? Память всегда такая… сначала.",
             "Я остался здесь однажды. Надолго.",
             "Ты можешь остаться. Здесь никто не стареет. Я проверял.",
             "Отпустить — не значит забыть. Ты начинаешь это понимать."
-        }, S6, spawnPos: new Vector3(-14f, -9f, 0f)));
+        }, S6, spawnPos: new Vector3(-14f, -9f, 0f),
+            collectible: ("memory_petal", "Лепесток памяти", new Vector3(-2f, 0f, 0f), 0,
+                "Лепесток памяти. Хрупкий — как то, что ты боишься отпустить."),
+            itemTint: new Color(1f, 0.6f, 0.8f, 1f)));
         SafeBuild(S5C, () => BuildBranch(S5C, new[]
         {
             "Держись крепче… или отпусти всё сразу.",
             "Я падал здесь. Много раз.",
             "Свобода без опоры — это падение. Я понял это слишком поздно.",
             "Ты стал легче. Вопрос — чего стало меньше? Иногда ответ — «меня»."
-        }, S6));
+        }, S6, exitPos: new Vector3(18.87f, 8.81f, 0f), spawnPos: new Vector3(-12.77f, 8.62f, 0f)));
         SafeBuild(S4, () => BuildChoiceScene(S4,
             new[] { "Обитель Теней", "Сад Памяти", "Тропа Ветра" },
             new[] { S5A, S5B, S5C },
@@ -123,14 +140,22 @@ public static class StorySceneBuilder
             "Здесь ты всегда замедляешься.",
             "Они появляются, когда ты почти решил… но не до конца. Они любят тебя — ты даёшь им повод существовать.",
             "Иди. Ты всегда доходишь. Просто не всегда понимаешь как."
-        }, S4, withEnemies: true, combatLine: "Видишь их? Они появляются, когда ты почти решил… но не до конца."));
+        }, S4, withEnemies: true, combatLine: "Видишь их? Они появляются, когда ты почти решил… но не до конца.",
+            exitPos: new Vector3(20.29f, 8.43f, 0f), spawnPos: new Vector3(-14f, -9f, 0f),
+            enemyList: new (string, Vector3)[]
+            {
+                ("PatrollingGuard", new Vector3(-13.4f, 3.39f, 0f)),
+            }));
         SafeBuild(S3B, () => BuildBranch(S3B, new[]
         {
             "Осторожно. Здесь тонут не тела.",
             "Я однажды попытался вытащить кого-то отсюда… он не хотел уходить.",
             "Слышишь? Это слова, которые так и не стали звуком. Некоторые из них — твои.",
             "Иди по суше. В следующий раз они будут громче."
-        }, S4, exitPos: new Vector3(4.9f, 8.04f, 0f)));
+        }, S4, exitPos: new Vector3(4.9f, 8.04f, 0f),
+            collectible: ("unspoken_word", "Несказанное слово", new Vector3(-6f, 4f, 0f), 1,
+                "Слово, которое ты так и не сказал. Теперь оно с тобой — молчи дальше."),
+            itemTint: new Color(0.5f, 0.85f, 0.55f, 1f)));
         SafeBuild(S3C, () => BuildBranch(S3C, new[]
         {
             "Здесь никто не говорит первым.",
@@ -559,7 +584,9 @@ public static class StorySceneBuilder
 
     // ---------- Линейная сцена-ветка (3A/B/C, 5A/B/C, Коридор, Сердце Леса) ----------
     static void BuildBranch(string sceneName, string[] lines, string target,
-        bool withEnemies = false, string combatLine = null, Vector3? exitPos = null, Vector3? spawnPos = null)
+        bool withEnemies = false, string combatLine = null, Vector3? exitPos = null, Vector3? spawnPos = null,
+        (string prefab, Vector3 pos)[] enemyList = null,
+        (string id, string name, Vector3 pos, int vote, string line)? collectible = null, Color? itemTint = null)
     {
         var scene = NewScene();
         CreateGrid();
@@ -577,8 +604,19 @@ public static class StorySceneBuilder
             return new Vector3(c.x, c.y, 0f);
         }
 
+        // Собираемый предмет (если задан) + запор выхода до его подбора.
+        string reqItem = "";
+        string lockMsg = "";
+        if (collectible.HasValue)
+        {
+            var c = collectible.Value;
+            CreatePickup(c.name, c.id, c.pos, fairen, c.line, c.vote, itemTint);
+            reqItem = c.id;
+            lockMsg = $"Сначала найди: {c.name}.";
+        }
+
         // Выход: заданная позиция (если указана) или в дальнем конце по направлению сцены.
-        CreateSceneExit(exitPos ?? At(len, 0), target, requiredItem: "", lockedMsg: "", hint: fairen);
+        CreateSceneExit(exitPos ?? At(len, 0), target, requiredItem: reqItem, lockedMsg: lockMsg, hint: fairen);
 
         if (withEnemies)
         {
@@ -586,10 +624,19 @@ public static class StorySceneBuilder
             if (!string.IsNullOrEmpty(combatLine))
                 CreateLineTrigger(At(Mathf.RoundToInt(len * 0.15f), 0), fairen, combatLine);
 
-            // Тени-противники — в «комнатах» между перегородками, в стороне от тропы.
-            SpawnEnemy("WolfEnemy", At((p1 + p2) / 2, 3));
-            SpawnEnemy("WolfEnemy", At((p2 + p3) / 2, -3));
-            SpawnEnemy("PatrollingGuard", At((p3 + len) / 2, 3));
+            if (enemyList != null)
+            {
+                // Враги в заданных вручную позициях.
+                foreach (var (prefab, pos) in enemyList)
+                    SpawnEnemy(prefab, pos);
+            }
+            else
+            {
+                // Тени-противники — в «комнатах» между перегородками, в стороне от тропы.
+                SpawnEnemy("WolfEnemy", At((p1 + p2) / 2, 3));
+                SpawnEnemy("WolfEnemy", At((p2 + p3) / 2, -3));
+                SpawnEnemy("PatrollingGuard", At((p3 + len) / 2, 3));
+            }
         }
 
         Save(scene, sceneName);
@@ -646,14 +693,14 @@ public static class StorySceneBuilder
 
         var symbol = AddImage(canvas.transform, "Symbol");
         var srt = symbol.rectTransform;
-        srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.72f);
-        srt.sizeDelta = new Vector2(160, 160);
+        srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.92f);
+        srt.sizeDelta = new Vector2(110, 110);
         symbol.enabled = false;
 
-        var text = AddText(canvas.transform, "EndingText", "", 36, Color.white, TextAlignmentOptions.Center);
-        SetRegion(text.rectTransform, 0.15f, 0.30f, 0.85f, 0.62f);
+        var text = AddText(canvas.transform, "EndingText", "", 26, Color.white, TextAlignmentOptions.Top);
+        SetRegion(text.rectTransform, 0.08f, 0.16f, 0.92f, 0.84f);
 
-        var button = AddButton(canvas.transform, "В меню", new Vector2(220, 64), new Vector2(0, -380));
+        var button = AddButton(canvas.transform, "В меню", new Vector2(220, 64), new Vector2(0, -470));
 
         var endingGo = new GameObject("EndingScreen");
         var ending = endingGo.AddComponent<EndingScreen>();
@@ -663,10 +710,49 @@ public static class StorySceneBuilder
         so.FindProperty("symbolImage").objectReferenceValue = symbol;
         so.FindProperty("menuSceneName").stringValue = "MainMenu";
         var arr = so.FindProperty("endings");
-        arr.arraySize = 3;
-        SetEnding(arr, 0, "Свет.\nТы прошёл лес, не потеряв себя.");
-        SetEnding(arr, 1, "Тень.\nЛес забрал часть твоей души.");
-        SetEnding(arr, 2, "Равновесие.\nТы стал частью леса — ни светом, ни тьмой.");
+        arr.arraySize = 4;
+        SetEnding(arr, 0,
+            "РАСТВОРЕНИЕ\n\n" +
+            "Ты делаешь шаг назад. Потом ещё один.\n" +
+            "Чем дальше от света — тем легче дышать. Слишком легко.\n" +
+            "Имя ускользает. Лицо — тоже. Остаётся лишь ощущение, что что-то было важно. Но не здесь. Не для тебя.\n\n" +
+            "Файрен — далеко, между деревьями:\n" +
+            "«Ты прошёл через лес… не встретив себя. Это тоже путь.»\n" +
+            "«Возможно… в следующий раз.»\n\n" +
+            "Лес становится гуще. Шаги — тише.\n" +
+            "И однажды их не остаётся вовсе.");
+        SetEnding(arr, 1,
+            "КОНТРОЛЬ\n\n" +
+            "Сердце леса бьётся. Как будто ждало тебя.\n" +
+            "Ты идёшь прямо к нему. Тени расступаются — узнают.\n" +
+            "Ты касаешься света — и всё подчиняется.\n" +
+            "Каждое решение, каждый страх — теперь не враги. Инструмент.\n\n" +
+            "Файрен, ближе чем когда-либо, без улыбки:\n" +
+            "«Ты победил. И занял место, которое всегда было пустым.»\n" +
+            "«Теперь ты — сердце.»\n\n" +
+            "Лес держится на тебе и не отпускает.\n" +
+            "Где-то далеко кто-то просыпается на поляне.");
+        SetEnding(arr, 2,
+            "ПРИНЯТИЕ\n\n" +
+            "Ты делаешь шаг вперёд — и останавливаешься.\n" +
+            "Не от страха. Просто идти дальше не нужно.\n" +
+            "Свет касается тебя сам. Всё, через что ты прошёл, не исчезло — стало частью тебя.\n" +
+            "Тени — не враги. Память — не ловушка. Пустота — не потеря. Это просто ты.\n\n" +
+            "Файрен впервые улыбается по-настоящему:\n" +
+            "«Вот и всё. Никакой тайны. Никакого выхода. Просто понимание.»\n\n" +
+            "Между деревьями — настоящий путь. Ты делаешь шаг — и он не возвращает тебя назад.\n" +
+            "Ты больше не заблудишься. Даже если забудешь дорогу.");
+        SetEnding(arr, 3,
+            "ФАЙРЕН\n\n" +
+            "Сердце леса не светится. Оно смотрит. Как и ты.\n" +
+            "И ты понимаешь: ты не впервые здесь. Не во второй. Не в третий.\n\n" +
+            "Файрен уже рядом — будто был всегда.\n" +
+            "«Ты вспомнил.» Не вопрос. Утверждение.\n" +
+            "Ты смотришь на него и впервые видишь не проводника. А себя — чуть старше, чуть уставшего.\n" +
+            "«Я остался. Когда ты ушёл. Кто-то должен был ждать.»\n\n" +
+            "«На этот раз… ты можешь выбрать иначе.»\n" +
+            "Выход есть. Но он стоит цены.\n\n" +
+            "Кто останется здесь — ты или он?");
         so.ApplyModifiedPropertiesWithoutUndo();
 
         UnityEventTools.AddPersistentListener(button.onClick, ending.ReturnToMenu);
@@ -779,7 +865,8 @@ public static class StorySceneBuilder
         return dialog;
     }
 
-    static void CreatePickup(string displayName, string itemId, Vector3 pos, FairenDialog dialog, string line)
+    static void CreatePickup(string displayName, string itemId, Vector3 pos, FairenDialog dialog, string line,
+        int endingVote = -1, Color? tint = null)
     {
         var go = new GameObject(displayName);
         go.transform.position = pos;
@@ -789,7 +876,7 @@ public static class StorySceneBuilder
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Graphics/UI/Sprites/circle.png");
         sr.sortingOrder = 10;
-        sr.color = new Color(0.6f, 0.85f, 1f, 1f);
+        sr.color = tint ?? new Color(0.6f, 0.85f, 1f, 1f);
         if (sr.sprite == null)
             Debug.LogWarning("CreatePickup: спрайт circle.png не загрузился — назначь спрайт предмету вручную.");
 
@@ -804,6 +891,7 @@ public static class StorySceneBuilder
         so.FindProperty("pickOnTouch").boolValue = true;
         so.FindProperty("pickupDialog").objectReferenceValue = dialog;
         so.FindProperty("pickupLine").stringValue = line;
+        so.FindProperty("endingVote").intValue = endingVote;
         so.ApplyModifiedPropertiesWithoutUndo();
     }
 

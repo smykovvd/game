@@ -107,6 +107,11 @@ public class GameState : MonoBehaviour
     /// </summary>
     public int ResolveEnding()
     {
+        // Секретная концовка (индекс 3): собраны все сюжетные предметы
+        // (осколок + оба собираемых — значит пройдены Болото и Сад в одном прохождении).
+        if (items.Count >= 3)
+            return 3;
+
         int best = 0;
         int bestVotes = -1;
         for (int ending = 0; ending < 3; ending++)
