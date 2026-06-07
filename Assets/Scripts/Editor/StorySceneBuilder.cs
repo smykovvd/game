@@ -97,7 +97,7 @@ public static class StorySceneBuilder
             "Я остался здесь однажды. Надолго.",
             "Ты можешь остаться. Здесь никто не стареет. Я проверял.",
             "Отпустить — не значит забыть. Ты начинаешь это понимать."
-        }, S6));
+        }, S6, spawnPos: new Vector3(-14f, -9f, 0f)));
         SafeBuild(S5C, () => BuildBranch(S5C, new[]
         {
             "Держись крепче… или отпусти всё сразу.",
@@ -116,7 +116,7 @@ public static class StorySceneBuilder
                 "Теперь ты выбираешь не путь. Ты выбираешь себя.",
                 "И это та часть, где всё обычно идёт… иначе.",
                 "Ты уже менялся. Просто не признал этого. Ты пытаешься вспомнить… не так ли?"
-            }));
+            }, choicePos: new Vector3(14.28f, 9.03f, 0f)));
         SafeBuild(S3A, () => BuildBranch(S3A, new[]
         {
             "Свет не уходит. Он просто перестаёт быть уверенным.",
@@ -130,7 +130,7 @@ public static class StorySceneBuilder
             "Я однажды попытался вытащить кого-то отсюда… он не хотел уходить.",
             "Слышишь? Это слова, которые так и не стали звуком. Некоторые из них — твои.",
             "Иди по суше. В следующий раз они будут громче."
-        }, S4));
+        }, S4, exitPos: new Vector3(4.9f, 8.04f, 0f)));
         SafeBuild(S3C, () => BuildBranch(S3C, new[]
         {
             "Здесь никто не говорит первым.",
@@ -327,7 +327,7 @@ public static class StorySceneBuilder
 
         if (crossroads)
         {
-            const int fork = 4;
+            const int fork = 14; // развилка в правой части карты
             for (int x = xMin; x <= fork; x++) { Set(ground, x, 0, pathTile); Set(ground, x, -1, pathTile); }
             for (int y = -6; y <= 6; y++) Set(ground, fork, y, pathTile);
             for (int x = fork; x <= xMax; x++)
@@ -381,7 +381,7 @@ public static class StorySceneBuilder
         bool Blocked(int x, int y)
         {
             if (crossroads)
-                return (y >= -1 && y <= 1) || y == 5 || y == 6 || y == -5 || y == -6 || x == 4;
+                return (y >= -1 && y <= 1) || y == 5 || y == 6 || y == -5 || y == -6 || x == 14;
             int fc = x * fwd.x + y * fwd.y;
             int sc = x * side.x + y * side.y;
             if (sc >= -1 && sc <= 1) return true;
@@ -541,28 +541,29 @@ public static class StorySceneBuilder
 
     // ---------- Сцена выбора (Распутье, Перекрёсток) ----------
     static void BuildChoiceScene(string sceneName, string[] options, string[] scenes, int[] votes,
-        string choiceKey, string hint, string[] introLines = null)
+        string choiceKey, string hint, string[] introLines = null, Vector3? choicePos = null)
     {
         var scene = NewScene();
         CreateGrid();
-        SpawnPlayerAndCamera(Vector3.zero);
+        SpawnPlayerAndCamera(new Vector3(-14f, 0f, 0f)); // игрок появляется слева у стены
 
         if (introLines != null && introLines.Length > 0)
             CreateFairenDialog("Файрен", introLines, playOnStart: true);
 
         var choiceManager = CreateChoiceUI();
-        CreateChoiceTrigger(new Vector3(4f, 0f, 0f), choiceManager, options, scenes, votes, choiceKey, hint);
+        // Зона выбора: заданная позиция или развилка справа по умолчанию.
+        CreateChoiceTrigger(choicePos ?? new Vector3(14f, 0f, 0f), choiceManager, options, scenes, votes, choiceKey, hint);
 
         Save(scene, sceneName);
     }
 
     // ---------- Линейная сцена-ветка (3A/B/C, 5A/B/C, Коридор, Сердце Леса) ----------
     static void BuildBranch(string sceneName, string[] lines, string target,
-        bool withEnemies = false, string combatLine = null)
+        bool withEnemies = false, string combatLine = null, Vector3? exitPos = null, Vector3? spawnPos = null)
     {
         var scene = NewScene();
         CreateGrid();
-        SpawnPlayerAndCamera(Vector3.zero);
+        SpawnPlayerAndCamera(spawnPos ?? Vector3.zero);
 
         var fairen = CreateFairenDialog("Файрен", lines, playOnStart: true);
 
@@ -576,8 +577,8 @@ public static class StorySceneBuilder
             return new Vector3(c.x, c.y, 0f);
         }
 
-        // Выход в дальнем конце — через все «комнаты», в направлении сцены.
-        CreateSceneExit(At(len, 0), target, requiredItem: "", lockedMsg: "", hint: fairen);
+        // Выход: заданная позиция (если указана) или в дальнем конце по направлению сцены.
+        CreateSceneExit(exitPos ?? At(len, 0), target, requiredItem: "", lockedMsg: "", hint: fairen);
 
         if (withEnemies)
         {
