@@ -217,52 +217,6 @@ public static class StorySceneBuilder
         EditorUtility.DisplayDialog("Story Builder", "Готово! Лес нарисован. Открыта Поляна — посмотри в Scene/Game.", "Ок");
     }
 
-    [MenuItem("Game/Story/3. Capture Current Scene Tiles", false, 2)]
-    public static void CaptureCurrentScene()
-    {
-        if (EditorApplication.isPlaying)
-        {
-            EditorUtility.DisplayDialog("Story Builder", "Сначала выйди из режима Play.", "Понятно");
-            return;
-        }
-
-        var scene = EditorSceneManager.GetActiveScene();
-        var ground = FindTilemap("Tilemap_Ground");
-        var collision = FindTilemap("Tilemap_Collision");
-        var decor = FindTilemap("Tilemap_Decoration");
-        if (ground == null || collision == null || decor == null)
-        {
-            EditorUtility.DisplayDialog("Story Builder",
-                "В открытой сцене нет слоёв Tilemap. Открой игровую сцену (из Assets/Scenes/Story).", "Ок");
-            return;
-        }
-
-        var lines = new List<string>();
-        CaptureLayer(lines, "Ground", ground);
-        CaptureLayer(lines, "Collision", collision);
-        CaptureLayer(lines, "Decoration", decor);
-
-        Directory.CreateDirectory($"{StoryDir}/Captures");
-        File.WriteAllLines(CapturePath(scene.name), lines);
-        AssetDatabase.Refresh();
-
-        EditorUtility.DisplayDialog("Story Builder",
-            $"Слепок сцены «{scene.name}» сохранён ({lines.Count} тайлов).\n" +
-            "Теперь кнопка Paint будет рисовать эту сцену именно так, как ты нарисовала.", "Отлично");
-    }
-
-    static void CaptureLayer(List<string> lines, string layer, Tilemap map)
-    {
-        foreach (var pos in map.cellBounds.allPositionsWithin)
-        {
-            var t = map.GetTile(pos);
-            if (t == null) continue;
-            string p = AssetDatabase.GetAssetPath(t);
-            if (string.IsNullOrEmpty(p)) continue;
-            lines.Add($"{layer}|{pos.x}|{pos.y}|{p}");
-        }
-    }
-
     static void PaintScene(string sceneName)
     {
         var scene = EditorSceneManager.OpenScene(ScenePath(sceneName));
