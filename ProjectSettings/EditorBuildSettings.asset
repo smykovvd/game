@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Story/Ending.unity
     guid: c632181f7c0664ea5b7ecf1134fec3c5
   - enabled: 1
+    path: Assets/Scenes/PauseSystem.unity
+    guid: b9b42be14b27e69419de8234caac59e5
+  - enabled: 1
     path: "Assets/Scenes/\u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442.unity"
     guid: 76bcf5e34b22ea54aa587c4cc0bd3e54
   - enabled: 1

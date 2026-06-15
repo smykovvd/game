@@ -9,7 +9,7 @@ public class CharacterVisualApplicator : MonoBehaviour
 {
     [SerializeField] CharacterVisualData visualData;
     [SerializeField] Transform visualRoot;
-    [SerializeField] bool applyOnAwake = true;
+    [SerializeField] bool applyOnAwake = false;
 
     SpriteRenderer[] spriteRenderers;
     Animator animator;
