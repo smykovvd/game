@@ -11,6 +11,7 @@ public class CharacterAnimationBridge : MonoBehaviour
     static readonly int MoveYHash = Animator.StringToHash(GameArtSettings.AnimatorParameters.MoveY);
     static readonly int IsAttackingHash = Animator.StringToHash(GameArtSettings.AnimatorParameters.IsAttacking);
     static readonly int AttackTriggerHash = Animator.StringToHash(GameArtSettings.AnimatorParameters.AttackTrigger);
+    static readonly int DeathTriggerHash = Animator.StringToHash("Death");
 
     [SerializeField] UnityEngine.Animator animator;
     [SerializeField] Transform flipTarget;
@@ -86,6 +87,15 @@ public class CharacterAnimationBridge : MonoBehaviour
             return;
 
         animator.SetBool(IsAttackingHash, false);
+    }
+
+    public void PlayDeath()
+    {
+        if (animator == null)
+            return;
+
+        if (HasParameter(DeathTriggerHash, AnimatorControllerParameterType.Trigger))
+            animator.SetTrigger(DeathTriggerHash);
     }
 
     void ApplyFlip()

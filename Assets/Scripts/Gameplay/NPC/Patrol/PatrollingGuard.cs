@@ -11,12 +11,27 @@ public class PatrollingGuard : MonoBehaviour
     private int currentPointIndex = 0;
     private float lastAttackTime = 0f;
 
+    void Start()
+    {
+        // Проверяем наличие точек патрулирования при старте
+        if (patrolPoints == null || patrolPoints.Count == 0)
+        {
+            Debug.LogWarning($"Враг {gameObject.name}: нет точек патрулирования, скрипт отключён");
+            enabled = false;
+        }
+    }
+
     void Update()
     {
-        if (patrolPoints.Count == 0) return;
+        // Исправлено: сначала проверяем на null, потом на Count
+        if (patrolPoints == null || patrolPoints.Count == 0) return;
 
         // Движение к текущей точке
         Transform targetPoint = patrolPoints[currentPointIndex];
+
+        // Дополнительная проверка, что точка существует
+        if (targetPoint == null) return;
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             targetPoint.position,

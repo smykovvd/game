@@ -92,3 +92,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  slashSound: {fileID: 8300000, guid: 743315a8a3baa334ba53c30713f477e1, type: 3}

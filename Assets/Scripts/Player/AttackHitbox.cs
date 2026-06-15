@@ -3,6 +3,28 @@ using UnityEngine;
 public class AttackHitbox : MonoBehaviour
 {
     public int damage = 1;
+    public AudioClip slashSound;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+    }
+
+    public void PlaySlashSound()
+    {
+        if (slashSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(slashSound);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject attackHitbox;
     public float attackCooldown = 0.5f;
     public float attackDuration = 0.2f;
+    public AudioClip slashSound;
 
     [SerializeField] CharacterAnimationBridge animationBridge;
+    private AudioSource audioSource;
 
     Vector2 movement;
     Vector2 lastMoveDirection = Vector2.down;
@@ -19,6 +21,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (animationBridge == null)
             animationBridge = GetComponent<CharacterAnimationBridge>();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
     }
 
     void Update()
@@ -58,6 +67,12 @@ public class PlayerMovement : MonoBehaviour
 
         isAttacking = true;
         lastAttackTime = Time.time;
+
+        // Воспроизводим звук взмаха ножом
+        if (slashSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(slashSound);
+        }
 
         animationBridge?.PlayAttack();
 
